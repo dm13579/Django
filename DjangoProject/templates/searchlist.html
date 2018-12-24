@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}搜索列表{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'music/css/searchlist.css' %}"/>
+<div>
+    <div class="search_container">
+        <div class="search_div">
+            <input type="text" class="search_input" placeholder="音乐"/>
+            <span>
+                <button class="search_btn" type="button">搜 索</button>
+            </span>
+        </div>
+    </div>
+    <div class="search_list_content">
+        {% block searchcontent%}{% endblock %}
+    </div>
+</div>
+<script>
+ $("body").keydown(function() {
+	contenttext=$(".search_input").val()
+             if (event.keyCode == "13"&&contenttext!="") {//keyCode=13是回车键
+                $(".search_btn").click();
+             }
+         });
+
+$(".search_btn").click(function(){
+        contenttext=$(".search_input").val()
+        $.ajax({
+			url:'{% url 'music:searchlistmesssage'  %}',
+			type:"POST",
+			data:{"musicname":contenttext},
+			success:function(e){
+                window.location.href='{% url 'music:searchlist' %}'
+			},
+		});
+    })
+
+</script>
+{% endblock %}

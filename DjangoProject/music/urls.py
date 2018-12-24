@@ -1,0 +1,43 @@
+from django.conf.urls import url
+from . import views
+from .uploads import upload_image
+urlpatterns = [
+    url(r'^searchlistmesssage/$', views.searchlistmesssage, name="searchlistmesssage"),
+    url(r'^searchlist/$', views.searchlist, name="searchlist"),
+    url(r'^albumlist/$', views.albumlist, name="albumlist"),
+    url(r'^authorlist/$', views.authorlist, name="authorlist"),
+    url(r'^mp3detail/(?P<id>\d+)/$', views.mp3detail, name="mp3detail"),
+    url(r'^playmusic/$', views.playmusic, name="playmusic"),
+    url(r'^footlist/$', views.footlist, name="footlist"),
+    url(r'^artistdetail/(?P<ar>\d+)/(?P<name>.+)/$', views.artistdetail, name="artistdetail"),
+    url(r'^albumdetail/(?P<al>\d+)/$', views.albumdetail, name="albumdetail"),
+    url(r'^download_mp3/(?P<id>\d+)/(?P<name>.+)/$', views.download_mp3, name="download_mp3"),
+    url(r'^comment_song/$', views.comment_song, name="comment_song"),
+    url(r'^comment_song_second/$', views.comment_song_second, name="comment_song_second"),
+    url(r'^comment_like/$', views.comment_like, name="comment_like"),
+    url(r'^mymusic/(?P<id>\d+)$', views.mymusic, name="mymusic"),
+    url(r'^shoucangmusic/$', views.shoucangmusic, name="shoucangmusic"),
+    url(r'^myroom/$', views.myroom, name="myroom"),
+    url(r'^otherinfo/(?P<user_id>\d+)$', views.otherinfo, name="otherinfo"),
+    url(r'^gedandetail/(?P<gedan_id>\d+)$', views.gedandetail, name="gedandetail"),
+    url(r'^shoucanggedan/$', views.shoucanggedan, name="shoucanggedan"),
+    url(r'^mydynamic/$', views.mydynamic, name="mydynamic"),
+    url(r'^upload/(?P<dir_name>[^/]+)$', upload_image, name="upload_img"),
+    url(r'^mydynamic_layer/$', views.mydynamic_layer, name="mydynamic_layer"),
+    url(r'^mydynamic_save/$', views.mydynamic_save, name="mydynamic_save"),
+    url(r'^guanzhu/$', views.guanzhu, name="guanzhu"),
+    url(r'^mydynamic_like/$', views.mydynamic_like, name="mydynamic_like"),
+    url(r'^dynamic_detail/(?P<user_id>\d+)$', views.dynamic_detail, name="dynamic_detail"),
+    url(r'^fensi_detail/(?P<user_id>\d+)$', views.fensi_detail, name="fensi_detail"),
+    url(r'^guan_detail/(?P<user_id>\d+)$', views.guan_detail, name="guan_detail"),
+    url(r'^dynamic_comment/$', views.dynamic_comment, name="dynamic_comment"),
+    url(r'^ranking/(?P<ranking_id>\d+)$', views.ranking, name="ranking"),
+    url(r'^hot_gedan/$', views.hot_gedan, name="hot_gedan"),
+    url(r'^system_gedan/(?P<gedan_id>\d+)$', views.system_gedan, name="system_gedan"),
+    url(r'^play_mv/$', views.play_mv, name="play_mv"),
+    url(r'^gedan_chuli/$', views.gedan_chuli, name="gedan_chuli"),
+    url(r'^del_play/$', views.del_play, name="del_play"),
+    url(r'^xiangsi_detail/(?P<song_id>\d+)$', views.xiangsi_detail, name="xiangsi_detail"),
+]
+
+app_name = "music"

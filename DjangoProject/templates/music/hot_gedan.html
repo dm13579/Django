@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}热门歌单{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'account/css/style.css' %}"/>
+    <div class="hot_commend_gedan">
+        <h1>热门歌单</h1>
+        <hr style="height: 2px;margin-bottom:20px;background-color: red;border: 0px;margin-top: 10px">
+        {% for list in li_gedan_quchong %}
+            <a href="/music/gedandetail/{{ list.1.id }}">
+                <div class="room_gedan">
+                    {% if list.1.gedansong.count != 0 %}
+                        <div class="room_img">
+                            <img src="{{ list.1.gedansong.first.music_albumimg }}">
+                        </div>
+                    {% else %}
+                        <div class="room_img">
+                            <img src="{% static 'music/img/msk.jpg' %}">
+                        </div>
+                    {% endif %}
+                    <p>{{ list.0 }}人收藏</p>
+                    <p>{{ list.1.gedanname }} ({{ list.1.gedansong.count }}首)</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    <script>
+        $("#compare").css("background-color","red")
+        $('#paihang').css("background-color","red")
+        $("#dang").css("background-color","#8B7D6B")
+    </script>
+{% endblock %}

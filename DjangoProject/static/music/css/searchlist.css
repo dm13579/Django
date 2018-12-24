@@ -1,0 +1,223 @@
+.search_container{
+    background: url("../img/search_back.jpg");
+    background-size: 100% 200px;
+    height: 200px;
+}
+.search_div{
+    padding: 120px;
+    width: 70%;
+    margin: 0 auto;
+}
+.search_input{
+    width: 89%;
+    border: 1px solid gray;
+    height: 40px;
+    font-size: 15px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.search_btn{
+    width: 10%;
+    border: 1px solid gray;
+    height: 40px;
+    background: white;
+    font-size: 15px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.search_btn:hover{
+    cursor: pointer;
+    background-color: #0FB9EF;
+}
+.search_list_content{
+    width: 80%;
+	height: 800px;
+	margin: 0 auto;
+	border-left: 1px #8B8989 solid;
+	border-right: 1px #8B8989 solid;
+}
+.person_nav{
+    width: 90%;
+    height: 50px;
+    padding: 30px 30px 0px 30px;
+    margin: 0 auto;
+}
+.person_song{
+    display: inline-block;
+    height: 30px;
+    width: 100px;
+    text-align: center;
+    line-height: 30px;
+    background-color: white;
+    border: 1px solid slategray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.person_author,.person_album{
+    display: inline-block;
+    height: 30px;
+    width: 100px;
+    text-align: center;
+    line-height: 30px;
+    background-color: white;
+    border: 1px solid slategray;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.person_song,.person_album:hover{
+    cursor: pointer;
+    background-color: #0FB9EF;
+    border-bottom: 0px;
+}
+.person_author:hover{
+    cursor: pointer;
+    background-color: #0FB9EF;
+    border-bottom: 0px;
+}
+
+.search_list a:hover{
+    color: #0FB9EF;
+}
+.search_list{
+    width: 90%;
+    margin: 0 auto;
+    height: 100px;
+    font-size: 13px;
+}
+
+.list_sum{
+    height: 50px;
+    line-height: 50px;
+}
+.list_sum:hover{
+    background-color: #FFE4C4;
+}
+.list_song{
+    width: 49%;
+    height: 50px;
+    display: inline-block;
+}
+.list_song a{
+     height: 50px;
+}
+.list_author{
+    display: inline-block;
+    width: 20%;
+}
+.list_album{
+    display: inline-block;
+    width: 29%;
+}
+.album_list{
+    width: 90%;
+    margin: 0 auto;
+}
+.list_msk{
+    width: 170px;
+    height:180px;
+    display: inline-block;
+    margin: 0 auto;
+}
+.list_msk img {
+    width: 100px;
+    height: 100px;
+}
+.list_msk p a:hover{
+    color: #0FB9EF;
+    text-decoration: gray;
+}
+.list_msk .font_album{
+    font-size: 10px;
+}
+.pagination{
+    margin-top: 50px;
+    text-align: center;
+}
+.pagination .disabletrue {
+    width: 60px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 8px;
+    background-color: #D8BFD8;
+    border: 1px solid gray;
+    display: inline-block;
+}
+.pagination .disablefalse {
+    width: 60px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 8px;
+    display: inline-block;
+    background-color: #D4D4D4;
+    border: 1px solid gray;
+}
+.search_list table {
+    border: 0px;
+    border-collapse: collapse;
+}
+
+.search_list table .header {
+    background-color: #f3ebdb;
+    color: #d0b4ce;
+    font-size: 17px;
+}
+
+.search_list table th:first-child {
+    width: 70px;
+    height: 50px;
+    text-align: left;
+}
+
+.search_list table th:nth-child(2) {
+    width: 200px;
+    height: 50px;
+    text-align: left;
+}
+
+.search_list table th:nth-child(3) {
+    width: 130px;
+    text-align: left;
+}
+
+.search_list table th:nth-child(4) {
+    width: 280px;
+    text-align: left;
+}
+
+.search_list table th:last-child {
+    width: 260px;
+    text-align: left;
+}
+
+.search_list table .ctn td:first-child {
+    text-align: center;
+}
+
+.search_list table .ctn {
+    height: 50px;
+    color: #d0b4ce;
+}
+
+.search_list table .ctn td {
+    font-size: 12px;
+}
+
+.search_list table .ctn a:hover {
+    color: #0FB9EF;
+}
+
+.search_list table tr:nth-child(2n+3) {
+    background-color: #d4daff;
+}
+
+.search_list table .ctn td:nth-child(4) {
+    font-size: 12px;
+    color: #c5c3c3;
+
+}
+
+.search_list table .ctn span:hover {
+    text-decoration: #8B8989;
+    color: #0FB9EF;
+    cursor: pointer;
+}

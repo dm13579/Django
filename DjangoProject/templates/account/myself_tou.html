@@ -1,0 +1,28 @@
+{% extends "myself_edit.html" %}
+{% load staticfiles %}
+{%block myself_content%}
+    <div class="myself_nav">
+        <nav>
+            <ul>
+                <li><a href="{% url 'account:myself_info' %}">基本设置</a></li>
+                <li class="active"><a href="{% url 'account:myself_tou' %}">头像修改</a></li>
+                <li><a href="{% url 'account:myself_mi' %}">密码修改</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="myself_tou">
+        <strong>设置一个您喜爱的头像:</strong>
+        <p>（请选择图片文件）</p>
+        <br>
+        {% if user.userprofile.photo %}
+            <div class="myself_touimg">
+                <img src="{{ user.userprofile.photo | striptags }}">
+            </div>
+        {% else %}
+            <div class="myself_touimg">
+                <img src="{% static 'account/img/tou.jpg' %}">
+            </div>
+        {% endif %}
+        <button id="upload_image" onclick="upload_image_layer()">上传头像</button>
+    </div>
+{%endblock%}

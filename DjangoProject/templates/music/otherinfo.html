@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ otheruser.username }}的空间{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/myroom.css' %}"/>
+    <div class="room">
+        <div class="room_head">
+            <div class="room_img">
+                {% if photo %}
+                    <img src="{{ photo }}">
+                {% else %}
+                    <img src="{% static 'account/img/tou.jpg' %}">
+                {% endif %}
+            </div>
+            <div class="room_msg">
+                <h1>{{ otheruser.username }}<a><button class="guanzhu">关注</button></a></h1>
+                <hr style="height:1px;border: 0;background-color: #8a8a8a;">
+                <p>年龄：{{ age }}</p>
+                <div class="dynamic_guanzhu">
+                    <a href="/music/guan_detail/{{ otheruser.id }}"><div>{{ otheruser.guanzhufor.count }}&nbsp;关注</div></a>
+                    <a href="/music/dynamic_detail/{{ otheruser.id }}"><div>{{ otheruser.dynamic.count }}&nbsp;动态</div></a>
+                    <a href="/music/fensi_detail/{{ otheruser.id }}"><div>{{ otheruser.guanzhuto.count }}&nbsp;粉丝</div></a>
+                </div>
+            </div>
+            <div class="room_creategedan"></div>
+        </div>
+        <div class="room_content">
+            <h1>TA创建的歌单</h1>
+            <hr style="height:3px;margin-bottom:10px;border: 0;background-color: red;">
+            {% for g in creategedan %}
+                <a href="/music/gedandetail/{{ g.id }}">
+                    <div class="room_gedan">
+                        {% if g.gedansong.count != 0 %}
+                            <div class="room_img">
+                                <img src="{{ g.gedansong.first.music_albumimg }}">
+                            </div>
+                        {% else %}
+                            <div class="room_img">
+                                <img src="{% static 'music/img/msk.jpg' %}">
+                            </div>
+                        {% endif %}
+                        <p>{{ g.gedanname }} ({{ g.gedansong.count }}首)</p>
+                    </div>
+                </a>
+                {% empty %}
+                <span style="margin-left:20px;margin-bottom: 20px;">他还未创建歌单</span>
+            {% endfor %}
+            <h1>TA收藏的歌单</h1>
+            <hr style="height:3px;border: 0;margin-bottom:10px;background-color: red;">
+            {% for g in shougedans %}
+                <a href="/music/gedandetail/{{ g.id }}">
+                    <div class="room_gedan">
+                        {% if g.gedansong.count != 0 %}
+                            <div class="room_img">
+                                <img src="{{ g.gedansong.first.music_albumimg }}">
+                            </div>
+                        {% else %}
+                            <div class="room_img">
+                                <img src="{% static 'music/img/msk.jpg' %}">
+                            </div>
+                        {% endif %}
+                        <p>{{ g.gedanname }} ({{ g.gedansong.count }}首)</p>
+                    </div>
+                </a>
+                {% empty %}
+                <span style="margin-left:20px;margin-bottom: 20px;">他还未收藏歌单</span>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+    $(".guanzhu").click(function () {
+        $.ajax({
+            url:'{% url "music:guanzhu" %}',
+            type:'POST',
+            data:{"otheruser_id":{{ otheruser.id }},"status":"guan"},
+            success:function(e){
+                if(e=="1"){
+                    alert("关注成功，可看到TA的动态")
+                    window.location.reload()
+                }else{
+                    alert("您已关注过TA了")
+                }
+            },
+        })
+    })
+    </script>
+{% endblock %}

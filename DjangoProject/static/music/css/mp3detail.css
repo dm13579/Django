@@ -1,0 +1,332 @@
+.cont_det {
+    margin-top: 30px;
+}
+
+.lyric {
+    margin-left: 25px;
+    width: 100%;
+}
+
+.lyric h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.album_img {
+    display: inline-block;
+    width: 350px;
+    height: 300px;
+}
+
+.album_img div {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    line-height: 350px;
+}
+
+.album_img img {
+    width: 250px;
+    height: 250px;
+}
+
+.song_detail {
+    display: inline-block;
+    position: absolute;
+    width: 50%;
+    height: 250px;
+}
+
+.song_detail h1 {
+    margin-top: 50px;
+}
+
+.song_detail h3 {
+    color: #676965;
+    font-size: 12px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.song_detail h3 a {
+    color: #676965;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.song_detail h3 a:hover {
+    color: #0FB9EF;
+}
+
+.song_detail .player {
+    margin-top: 20px;
+    width: 115px;
+    height: 40px;
+    font-size: 15px;
+    color: white;
+    border: 1px solid #d2d2d2;
+    background-color: #6ff95e;
+}
+
+.song_detail .shoucang {
+    margin-top: 20px;
+    width: 115px;
+    height: 40px;
+    font-size: 15px;
+    border: 1px solid #d2d2d2;
+    background-color: white;
+}
+
+.song_detail .comment {
+    margin-top: 20px;
+    width: 115px;
+    height: 40px;
+    font-size: 15px;
+    border: 1px solid #d2d2d2;
+    background-color: white;
+}
+
+.song_detail .download {
+    margin-top: 20px;
+    width: 115px;
+    height: 40px;
+    font-size: 15px;
+    border: 1px solid #d2d2d2;
+    background-color: white;
+}
+
+.song_detail button:hover {
+    cursor: pointer;
+}
+
+.mp3detail_commet {
+    margin: 20px auto;
+    width: 96%;
+}
+
+.mp3detail_commet h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.Main {
+    width: 800px;
+    height: 180px;
+    margin-top: 10px;
+}
+
+.Input_Box {
+    width: 780px;
+    height: 160px;
+    border: 1px solid #ccc;
+    transition: border linear .2s, box-shadow linear .5s;
+    -moz-transition: border linear .2s, -moz-box-shadow linear .5s;
+    -webkit-transition: border linear .2s, -webkit-box-shadow linear .5s;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+    overflow: hidden;
+    position: absolute;
+    -moz-box-shadow: 0 0 5px #ccc;
+    -webkit-box-shadow: 0 0 5px #ccc;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.Input_Box > textarea {
+    width: 770px;
+    height: 111px;
+    padding: 5px;
+    outline: none;
+    border: 0px solid #fff;
+    resize: none;
+    font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+}
+
+.Input_Foot {
+    width: 100%;
+    height: 35px;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    -moz-border-radius: 0 0 5px 5px;
+    -webkit-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+    position: absolute;
+}
+
+.imgBtn {
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+    background-image: url(../img/imgs.png);
+    background-repeat: no-repeat;
+    background-position: 0 -13px;
+    height: 18px;
+    width: 20px;
+    cursor: pointer
+}
+
+.imgBtn:active {
+    margin-top: 9px;
+}
+
+.imgBtn:hover {
+    background-position: 0 -31px
+}
+
+.postBtn {
+    float: right;
+    font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+    color: #808080;
+    padding: 9px 20px 7px 20px;
+    border-left: 1px solid #ccc;
+    cursor: pointer;
+    -moz-border-radius: 0 0 5px 0;
+    -webkit-border-radius: 0 0 5px 0;
+    border-radius: 0 0 5px 0;
+}
+
+.postBtn:hover {
+    color: #333;
+    background-color: #efefef;
+}
+
+.postBtn:active {
+    padding: 10px 20px 6px 20px;
+}
+
+.faceDiv {
+    width: 800px;
+    height: 120px;
+    border-top: 1px solid #ccc;
+    position: absolute;
+    background-color: #fff;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+}
+
+.faceDiv > img {
+    border: 1px solid #ccc;
+    float: left;
+    margin-left: -1px;
+    margin-top: -1px;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 3px 3px 3px 3px;
+    cursor: pointer;
+}
+
+.faceDiv > img:hover {
+    background-color: #efefef;
+}
+
+.faceDiv > img:active {
+    padding: 4px 3px 2px 3px;
+}
+
+.new_comment .coment_row {
+    margin-top: 20px;
+    width: 780px;
+    /*height: 200px;*/
+    border-bottom: 3px dotted #dbdad6;
+}
+
+.new_comment .coment_row .comment_body {
+    display: inline-block;
+    width: 730px;
+    margin-left: 60px;
+
+}
+
+.coment_row .comment_body .first_p {
+    margin-bottom: 20px;
+}
+
+.coment_row .comment_body a {
+    color: #0FB9EF;
+}
+
+.coment_row .comment_body a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+
+}
+
+.new_comment .comment_img {
+    width: 50px;
+    height: 40px;
+    display: inline-block;
+    position: absolute;
+}
+
+.new_comment .comment_img img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.time_like_btn span:nth-child(4) {
+    float: right;
+}
+
+.time_like_btn span:nth-child(5) {
+    float: right;
+}
+
+.time_like_btn span:nth-child(4):hover {
+    cursor: pointer;
+}
+
+.time_like_btn span:nth-child(5):hover {
+    cursor: pointer;
+}
+
+.huifu_row {
+    display: none;
+}
+
+.huifu_row .Input_Box {
+    background-color: white;
+}
+
+.huifu_row .Input_text {
+    background-color: white;
+}
+
+.huifuBtn {
+    float: right;
+    font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+    color: #808080;
+    padding: 9px 20px 7px 20px;
+    border-left: 1px solid #ccc;
+    cursor: pointer;
+    -moz-border-radius: 0 0 5px 0;
+    -webkit-border-radius: 0 0 5px 0;
+    border-radius: 0 0 5px 0;
+}
+
+.huifuBtn:hover {
+    color: #333;
+    background-color: #efefef;
+}
+
+.huifuBtn:active {
+    padding: 10px 20px 6px 20px;
+}
+
+.comment_second {
+    width: 730px;
+    margin-bottom: 10px;
+    background-color: #e6e6e6;
+}
+
+.comment_second div {
+    padding: 10px 20px 10px 20px;
+}
+

@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'music/css/mydynamic.css' %}"/>
+<div style="width: 500px; margin: 0 auto;">
+    <textarea required id="id_body" name="content"></textarea>
+    <div style="display: none" class="sava_message"></div>
+    <div style="width: 100%;margin-top: 10px">
+        <button class="fenxiang" style="float: left;border: 0; background-color:#6afdff;margin-left:80px;width: 100px;height: 30px;">分享</button>
+        <button class="cancel" style="float: right;border: 0; background-color:#6afdff;margin-right:80px;width: 100px;height: 30px;">取消分享</button>
+    </div>
+
+</div>
+<script src="{% static 'kindeditor/kindeditor-all-min.js' %}"></script>
+<script src="{% static 'kindeditor/lang/zh-CN.js' %}"></script>
+<script src="{% static 'account/js/jquery-1.11.1.min.js' %}"></script>
+<script>
+    var kind;
+    $(function () {
+        initKindEditor();
+    });
+    function initKindEditor() {
+         kind = KindEditor.create('#id_body', {
+            width: '500px',
+            height: '250px',
+            minWidth: 200,
+            minHeight: 100,
+            uploadJson: '/music/upload/kindeditor',
+            allowPreviewEmoticons: false,
+            allowImageRemote: false,
+            items: ['emoticons','image'],
+            afterUpload : function(url, data, name) {
+                if(name == "image"){
+                    var img = new Image(); img.src = url;
+                    img.onload = function(){
+                        if(img.width>100){
+                            kind.html(kind.html().replace('<img src="' + url + '"','<img src="' + url + '" width="100"'))
+                        }
+                    }
+                }
+            },
+        });
+    }
+    $(".fenxiang").click(function () {
+        var body=kind.html()
+	if(body==""){
+		alert("请输入内容")
+	}else{
+	$.ajax({
+            url:'{% url "music:mydynamic_save" %}',
+            type:'POST',
+            data:{"body":body},
+            success:function(e){
+                if(e=="1"){
+                    alert("分享成功")
+			var index1 = parent.layer.getFrameIndex(window.name);
+                 	    var index= parent.layer.getFrameIndex("layui-layer-iframe1");
+                            parent.layer.close(index1);
+                            parent.location.reload()
+                       }else{
+                          alert("分享失败")
+                       }
+                  },
+           });
+      }
+        
+    })
+    $(".cancel").click(function(){
+var index1 = parent.layer.getFrameIndex(window.name);
+        var index= parent.layer.getFrameIndex("layui-layer-iframe1");
+        parent.layer.close(index1);
+    })
+    </script>

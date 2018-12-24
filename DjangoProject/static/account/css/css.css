@@ -1,0 +1,281 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    outline: none;
+    font-family: Microsoft YaHei, Arial, Helvetica, sans-serif;
+}
+
+body {
+    line-height: 24px;
+    font-size: 14px;
+    color: #333;
+    background: #FFF;
+}
+
+img {
+    border: 0px;
+}
+
+a {
+    color: #333333;
+    text-decoration: none;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.clear {
+    clear: both;
+    height: 0px;
+    font-size: 0px;
+}
+
+.top01 {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color: #363636;
+}
+
+.top02 {
+    width: 90%;
+    height: 90px;
+    margin: 0px auto;
+}
+
+.top02_l {
+    width: 20%;
+    height: auto;
+    float: left;
+}
+
+.top02_l img {
+    
+    height: auto;
+    margin-top: 8px;
+    display: block;
+}
+
+.top02_c {
+    width: 50%;
+    height: auto;
+    margin-left: 30px;
+    float: left;
+}
+
+.top02_r {
+    width: 10%;
+    height: 90px;
+    float: left;
+}
+
+.top02_m {
+    width: 10%;
+    height: 90px;
+    float: right;
+}
+
+.top02 .search_dk {
+    width: 29px;
+    height: 24px;
+    cursor: pointer;
+    margin-top: 35px;
+    display: block;
+}
+.header_hr{
+    background-color: red;
+    border: 0px;
+    height:10px;
+}
+.top02 .search_gb {
+    width: 29px;
+    height: 24px;
+    cursor: pointer;
+    margin-top: 35px;
+    display: none;
+}
+
+.top02 .search02 {
+    width: 100%;
+    height: auto;
+    background: url(../img/sousuo02.png);
+    position: fixed;
+    left: 0px;
+    top: 90px;
+    z-index: 99999;
+    display: none;
+}
+
+.top02 .search03 {
+    width: 1200px;
+    height: auto;
+    padding: 15px 0px;
+    margin: 0px auto;
+}
+
+.top02 .search04 {
+    width: 215px;
+    height: 30px;
+    background: #FFF;
+    float: right;
+}
+
+.top02 .search05 {
+    width: 38px;
+    height: 30px;
+    float: right;
+}
+
+.top02 .in {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border: 0px;
+    display: block;
+}
+
+.top02_m img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-top: 14px;
+}
+
+.top02_m .m_xiala {
+    z-index: 1000;
+    position: relative;
+    background-color: #363636;
+    width: 120px;
+    height: 120px;
+    display: none;
+}
+
+.top02_m .m_xiala li {
+    height: 40px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.top02_m .m_xiala li span {
+    color: white;
+}
+
+.top02_m .m_xiala li:hover {
+    background-color: #4F4F4F;
+}
+
+.top02_m img:hover + .m_xiala {
+    display: block
+}
+
+.top02_m .m_xiala:hover {
+    display: block;
+}
+
+.top02_m .img:hover .m_xiala {
+    display: block;
+}
+
+.top02_m .top02_mlogin {
+    color: white;
+    line-height: 90px;
+    font-size: 16px;
+    float: right;
+}
+
+.top02_m .top02_mregister {
+    color: white;
+    line-height: 90px;
+    font-size: 16px;
+    float: right;
+}
+
+.top02_m .fenge {
+    color: white;
+    line-height: 90px;
+    float: right;
+}
+
+.top02_m .top02_mlogin:hover {
+    color: #FF0000
+}
+
+.top02_m .top02_mregister:hover {
+    color: #FF0000
+}
+
+.dh {
+    width: 100%;
+    height: auto;
+}
+
+.dh ul {
+    width: 100%;
+    height: auto;
+}
+
+.dh ul li {
+    width: 115px;
+    height: auto;
+    float: left;
+}
+
+.dh ul li .a01 {
+    width: 100%;
+    line-height: 90px;
+    text-align: center;
+    color: white;
+    font-size: 16px;
+    display: block;
+}
+
+.dh ul li:hover .a01 {
+    color: #fff;
+    background: #1C1C1C;
+}
+
+.dh_xl01 {
+    width: 100%;
+    height: 40px;
+    background: red;
+    position: absolute;
+    left: 0px;
+    top: 90px;
+    z-index: 999999;
+    display: none;
+}
+
+.dh_xl02 {
+    width: 49%;
+    height: auto;
+    margin: 0px auto;
+}
+
+.dh_xl02_l {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin: 0 auto
+}
+
+.dh_xl02_l a {
+    color: #fff;
+    width: 80px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 14px;
+    margin: 5px 30px 0px 0px;
+    display: block;
+    float: left;
+}
+
+.dh_xl02_l a:hover {
+    background-color: #8B7D6B
+}
+

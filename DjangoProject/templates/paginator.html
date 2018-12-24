@@ -1,0 +1,25 @@
+<div class="pagination">
+	<span class="step-links">
+		{% if page.has_previous %}
+            <div class="disabletrue">
+                <a class="page_previous" href="?page={{ page.previous_page_number }}">&lt;上一页</a>
+            </div>
+        {% else %}
+            <div class="disablefalse">
+                <span>&lt;上一页</span>
+            </div>
+		{% endif %}
+			<span class="current">
+				当前第{{ page.number }}页
+			</span>
+		{% if  page.has_next %}
+            <div class="disabletrue">
+			    <a class="next_previous" href="?page={{ page.next_page_number }}">下一页&gt;</a>
+            </div>
+        {% else %}
+            <div class="disabletrue">
+                <span class="disablefalse">下一页&gt;</span>
+            </div>
+		{% endif %}
+	</span>
+</div>

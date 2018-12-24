@@ -1,0 +1,99 @@
+{% load staticfiles %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'account/css/base.css' %}"/>
+<link rel="stylesheet" href="{% static 'account/css/register.css' %}"/>
+<div class="container">
+    <div class="bgPic"><img src="{% static 'account/img/b2_1.jpg' %}" alt=""/></div>
+    <div class="register">
+    <div class="title">
+        <span>注册</span>
+        <a href="{% url 'account:user_login' %}">去登录</a>
+    </div>
+    <form action="{% url 'account:user_register' %}" method="post" autocomplete="off">
+        {% csrf_token %}
+        <div class="default">
+            <p id="username_p">用户名由3~10个数字和英文字符组成</p>
+            <input id="username" name="username" required id="username" data-form="username" type="text" placeholder="用户名" />
+        </div>
+        <div class="default">
+            <p id="email_p">邮箱输入错误</p>
+            <input type="text" name="email" id="id_email" data-form="e-mail" placeholder="邮箱" />
+        </div>
+        <div class="default">
+            <p id="phone_p">电话输入错误</p>
+            <input type="text" name="phone" id="id_phone" data-form="phone" placeholder="电话" />
+        </div>
+        <div class="default">
+            <p id="password_p">密码由8~10个数字和英文字符组成</p>
+            <input id="upwd" name="password" required id="password" data-form="upwd" type="password" placeholder="密码"/>
+        </div>
+        <div class="default">
+            <p id="password2_p">请确认两次输入密码一致</p>
+            <input id="upwd_2" name="password2" required id="id_password2" data-form="upwd_2" type="password" placeholder="确认密码"/>
+        </div>
+
+        <div class="submit">
+            <span class="notice">点击"注册"代表您同意遵守
+                <a href="#">用户协议</a>
+                和
+                <a href="#">隐私条款</a>
+            </span>
+            <button class="s_hover" data-form="submit">注册</button>
+        </div>
+    </form>
+        <div class="other_login">
+            <div class="log">
+                <span>社交账号登录</span>
+            </div>
+            <div class="icon">
+                <ul>
+                    <li data-log="icon" class="i_hover">
+                        <img data-icon="wx" src="{% static 'account/img/wx.png' %}" alt=""/>
+                        <span class="prompt" >微信登录</span>
+                    </li>
+                    <li data-log="icon" class="i_hover">
+                        <img data-icon="qq" src="{% static 'account/img/qq.png' %}" alt=""/>
+                        <span class="prompt" >QQ登录</span>
+                    </li>
+                    <li data-log="icon" class="i_hover">
+                        <img data-icon="wb" src="{% static 'account/img/wb.png' %}" alt=""/>
+                        <span class="prompt" >微博登录</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<script type="text/javascript">
+    $("#username").blur(function(){
+        var username=$("#username").val()
+        if(username==""){
+            $("#username_p").css("opacity","1")
+            $("#username").focus();
+        }else{
+            $("#username_p").css("opacity","0")
+        }
+    });
+    $("#id_email").blur(function(){
+        var email=$("#id_email").val()
+        var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if(!reg.test(email)){
+            $("#email_p").css("opacity","1")
+            $("#id_email").focus();
+        }else{
+           $("#email_p").css("opacity","0")
+        }
+    });
+    $("#id_phone").blur(function(){
+        var tel=$("#id_phone").val()
+        var reg=/^((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+(\d{8})$/;
+        if(!reg.test(tel)){
+            $("#phone_p").css("opacity","1")
+            $("#id_phone").focus();
+        }else{
+            $("#phone_p").css("opacity","0")
+        }
+    });
+</script>
+{% endblock %}

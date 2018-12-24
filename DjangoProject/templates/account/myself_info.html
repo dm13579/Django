@@ -1,0 +1,54 @@
+{% extends "myself_edit.html" %}
+{% load staticfiles %}
+{%block myself_content%}
+    <div class="myself_nav">
+        <nav>
+            <ul>
+                <li class="active"><a href="{% url 'account:myself_info' %}">基本设置</a></li>
+                <li><a href="{% url 'account:myself_tou' %}">头像修改</a></li>
+                <li><a href="{% url 'account:myself_mi' %}">密码修改</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="myself_form1">
+        <form class="form-horizontal" action="." method="post">{% csrf_token %}
+            <div class="edit">
+                <div class="edit_span"><span>昵称:</span></div>
+                <div class="edit_username">{{ user.username }}</div>
+            </div>
+            <div class="edit1">
+                <div class="edit_span"><span>介绍:</span></div>
+                <div class="edit_aboutme">
+                   <textarea name="aboutme" cols="35" rows="7" id="id_aboutme">{{userprofile_form.aboutme.value}}</textarea>
+                </div>
+            </div>
+            <div class="edit2">
+                <div class="edit_span"><span>性别:</span></div>
+                {% if userprofile_form.sex.value == 'male' %}
+                    <input type="radio" name="sex" value="male" required id="id_sex_0" checked/>男&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="female" required id="id_sex_1" />女&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="null" required id="id_sex_2" />保密
+                {% elif userprofile_form.sex.value == 'female' %}
+                    <input type="radio" name="sex" value="male" required id="id_sex_0" />男&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="female" required id="id_sex_1" checked/>女&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="null" required id="id_sex_2" />保密
+                {% else %}
+                    <input type="radio" name="sex" value="male" required id="id_sex_0" />男&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="female" required id="id_sex_1" />女&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="null" required id="id_sex_2" checked/>保密
+                {% endif %}
+
+            </div>
+            <div class="edit3">
+                <div class="edit_span"><span>生日:</span></div>
+                <div class="edit_birth">
+                    <input id="txt_calendar" onclick="calc_onclick()" readonly="true" onfocus="showDate()" type="text" name="birth" value="{{ userprofile_form.birth.value|date:"Y-m-d" }}" id="id_birth" />
+                </div>
+                <img src="{% static 'account/img/calc.jpg' %}">
+            </div>
+            <div class="edit4">
+                <input class="myself_btn" type="submit" class="btn btn-primary btn-lg" value="提交">
+            </div>
+        </form>
+    </div>
+{%endblock%}

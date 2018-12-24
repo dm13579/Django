@@ -1,0 +1,258 @@
+.mymusic_content {
+    width: 90%;
+    margin: 0 auto;
+    border-left: 1px #ff3535;
+    border-right: 1px #fff4ac;
+}
+
+.gedan {
+    width: 20%;
+    height: 400px;
+    overflow-y: auto;
+    display: inline-block;
+    border-left: 1px solid #e1c2c5;
+    border-right: 1px solid #e1c2c5;
+}
+
+.contt {
+    display: inline-block;
+    width: 79%;
+    height: 400px;
+    overflow-y: auto;
+    border-left: 1px solid #e1c2c5;
+    border-right: 1px solid #e1c2c5;
+}
+
+.create_gedan {
+    margin-top: 50px;
+    margin-left: 30px;
+}
+
+.like_gedan {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.create_gedan button {
+    width: 50px;
+    height: 20px;
+    margin-right: 10px;
+    float: right;
+}
+
+.create_gedan button:hover {
+    cursor: pointer;
+}
+
+.create_gedan p {
+    display: inline-block;
+}
+
+.create_gedan p:hover {
+    cursor: pointer;
+}
+
+.like_gedan p:hover {
+    cursor: pointer;
+}
+
+.create_gedan p .spansanjiao {
+    color: #bbbbbb;
+}
+
+.like_gedan p .spansanjiao {
+    color: #bbbbbb;
+}
+
+.gedan_div1 {
+    height: 50px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.gedan_div1:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.gedan_div1_1 {
+    height: 40px;
+    width: 40px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.gedan_div1_1 img {
+    width: 40px;
+    height: 40px;
+}
+
+.gedan_div1_2 {
+    height: 40px;
+    display: inline-block;
+    width: 100px;
+    margin-top: 5px;
+}
+
+.gedan_div1_2 .songcount {
+    color: #8B8989;
+}
+.songcount .deletegedan:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.songcount .editgedan:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.gedan_div1_2 p {
+    margin-left: 5px;
+    width: 100%;
+}
+
+.contt .contt_head {
+    width: 100%;
+    height: 250px;
+}
+
+.contt .contt_head .contt_head1 {
+    width: 80%;
+    margin: 0 auto;
+    height: 250px;
+    margin-top: 30px;
+}
+
+.contt_head1_img {
+    width: 250px;
+    background-color: #2F2A2A;
+    height: 250px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.contt_head1_img img {
+    width: 250px;
+    height: 250px;
+}
+
+.contt_head1_msg {
+    width: 400px;
+    display: inline-block;
+}
+
+.contt_head1_msg span {
+    font-size: 30px;
+    margin-top: 0px;
+}
+
+.contt_head1_msg p {
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 0px;
+    font-size: 20px;
+}
+
+.create_people {
+    margin-top: 20px;
+}
+
+.create_people img {
+    width: 50px;
+    height: 50px;
+}
+
+.create_people a {
+    color: #0FB9EF;
+    font-size: 18px;
+}
+
+.create_people p {
+    color: #b5b5b5;
+    margin: 0;
+}
+
+.contt_list {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.contt_list .contt_list_head {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.contt_list p:first-child {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.contt_list .contt_list_head table {
+    border: 0px;
+    border-collapse: collapse;
+}
+
+.contt_list .contt_list_head table .header {
+    background-color: #f3ebdb;
+    color: #d0b4ce;
+    font-size: 17px;
+}
+
+.contt_list .contt_list_head table th:first-child {
+    width: 50px;
+    height: 50px;
+    text-align: left;
+}
+
+.contt_list .contt_list_head table th:nth-child(2) {
+    width: 150px;
+    height: 50px;
+    text-align: left;
+}
+
+.contt_list .contt_list_head table th:nth-child(3) {
+    width: 100px;
+    text-align: left;
+}
+
+.contt_list .contt_list_head table th:nth-child(4) {
+    width: 150px;
+    text-align: left;
+}
+
+.contt_list .contt_list_head table th:last-child {
+    width: 200px;
+    text-align: left;
+}
+
+.contt_list .contt_list_head table .ctn td:first-child {
+    text-align: center;
+}
+
+.contt_list .contt_list_head table .ctn {
+    height: 50px;
+    color: #d0b4ce;
+}
+
+.contt_list .contt_list_head table .ctn td {
+    font-size: 12px;
+}
+
+.contt_list .contt_list_head table .ctn a:hover {
+    color: #0FB9EF;
+}
+
+.contt_list .contt_list_head table tr:nth-child(2n+3) {
+    background-color: #d4daff;
+}
+
+.contt_list .contt_list_head table .ctn td:nth-child(4) {
+    font-size: 12px;
+    color: #c5c3c3;
+
+}
+
+.contt_list .contt_list_head table .ctn span:hover {
+    text-decoration: #8B8989;
+    color: #0FB9EF;
+    cursor: pointer;
+}

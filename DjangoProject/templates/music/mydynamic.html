@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}我的动态{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/mydynamic.css' %}"/>
+    <div class="dynamic_content">
+        <div class="dynamic_content_left">
+            <div class="dynamic_content_head">
+                <h1>动态</h1>
+                <button class="upload_dynamic">发动态</button>
+                <div style="clear: both;"></div>
+            </div>
+            <hr style="height: 2px;background-color: red;border: 0px;margin-top: 10px">
+            <div class="dynamic_content_left_content">
+                {% for list in guan_list %}
+                    {% if list.1 %}
+                        <div class="dynamic_list">
+                            <div class="left_head">
+                                <div class="left_head_img">
+                                    <div class="left_head_img">
+                                        {% if list.1.userprofile.photo %}
+                                            <img src="{{ list.1.userprofile.photo }}">
+                                        {% else %}
+                                            <img src="{% static 'account/img/tou.jpg' %}">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="left_head_msg">
+                                    <a href="/music/otherinfo/{{ list.1.id }}">{{ list.1.username }}</a>
+                                    <p>{{ list.0.created | date:"Y-m-d" }}发布</p>
+                                </div>
+                            </div>
+                            <div class="left_content">
+                                {% autoescape off %}
+                                    {{ list.0.body }}
+                                {% endautoescape  %}
+                            </div>
+                            <div class="dynamic_list_foot">
+                                {% if list.0 in request.user.dynamic_like.all %}
+                                    <span class="zan" style="color: red;">赞({{ list.0.likes }})</span>
+                                {% else %}
+                                    <span class="zan">赞({{ list.0.likes }})</span>
+                                {% endif %}
+                                <span class="comment">评论({{ list.0.comment_dynamic.count }})&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span style="display: none">{{ list.0.id }}</span>
+                            </div>
+
+                            <div class="dynamic_list_comment" style="display: none;">
+                                <textarea name="" id="" cols="75" rows="6"></textarea>
+                                <button class="comment_dynamic">评论</button>
+                                <span style="display: none">{{ list.0.id }}</span>
+                                <div style="margin-top: 40px;"></div>
+                                {% for li in list.0.comment_dynamic.all %}
+                                    <div class="comment_list">
+                                        {% if li.commentator.userprofile.photo %}
+                                            <img src="{{ li.commentator.userprofile.photo }}">
+                                        {% else %}
+                                            <img src="{% static 'account/img/tou.jpg' %}">
+                                        {% endif %}
+                                        <div class="commentator_msg">
+                                            <a href="/music/otherinfo/{{ li.commentator.id }}">{{ li.commentator }}</a>
+                                            :
+                                            <p>{{ li.body }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <hr>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="dynamic_content_right">
+            <div class="dynamic_content_right_head">
+                <div class="dynamic_head_img">
+                    {% if user.userprofile.photo %}
+                        <img src="{{ user.userprofile.photo | striptags }}">
+                    {% else %}
+                        <img src="{% static 'account/img/tou.jpg' %}">
+                    {% endif %}
+                </div>
+                <div class="dynamic_head_name">
+                    <h1>{{ request.user.username }}</h1>
+                </div>
+            </div>
+
+            <div class="dynamic_guanzhu">
+                <a href="/music/guan_detail/{{ request.user.id }}"><div>{{ request.user.guanzhufor.count }}&nbsp;关注</div></a>
+                <a href="/music/dynamic_detail/{{ request.user.id }}"><div>{{ request.user.dynamic.count }}&nbsp;动态</div></a>
+                <a href="/music/fensi_detail/{{ request.user.id }}"><div>{{ request.user.guanzhuto.count }}&nbsp;粉丝</div></a>
+            </div>
+            <hr style="margin-bottom: 30px">
+            {#按粉丝数量排序#}
+            <h1>热门用户</h1>
+            <hr style="height: 2px;background-color: red;border: 0px;margin-top: 10px;margin-bottom: 30px">
+            <div class="right_hot_user">
+                {% for list in list_fensi %}
+                    <div class="right_hot_user_list">
+                        {% if list.1.userprofile.photo %}
+                            <img src="{{ list.1.userprofile.photo }}">
+                        {% else %}
+                            <img src="{% static '/account/img/tou.jpg' %}">
+                        {% endif %}
+                        <div class="right_hot_user_msg">
+                            <a href="/music/otherinfo/{{ list.1.id }}">{{ list.1.username }}</a>
+                            <br>
+                            <span>有&nbsp;{{ list.0 }}&nbsp;粉丝</span>
+                            <button onclick="guanzhu({{ list.1.id }})">关注</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'kindeditor/kindeditor-all-min.js' %}"></script>
+    <script src="{% static 'kindeditor/lang/zh-CN.js' %}"></script>
+    <script>
+    $(".comment_dynamic").click(function(){
+        var id = $(this).next().text()
+        var body = $(this).prev().val()
+        if(body == ""){
+            alert("请输入内容")
+        }else{
+            $.ajax({
+                url: '{% url 'music:dynamic_comment'  %}',
+                type: "POST",
+                async: false,
+                data: {"dynamic_id": id,"body": body},
+                success: function (num) {
+                    window.location.reload()
+                },
+                error: function () {
+                    alert(arguments[1]);
+                }
+            });
+        }
+    })
+
+    if($("body").find(".dynamic_list").length==0){
+        $(".dynamic_content_left_content").text("还未关注用户，看不到别人的动态哦")
+    }
+    $(".upload_dynamic").click(function(){
+        layer.open({
+            title:['分享', 'background-color:#181818;color:#fff'],
+            type: 2,
+            area: ["550px", "400px"],
+            skin: "layui-layer-rim",
+            content: '/music/mydynamic_layer',
+        })
+    });
+
+    var isshowcomment = false;
+    $(".comment").click(function(){
+        if (isshowcomment == false) {
+                isshowcomment = true
+                $(this).parent().next().css("display","block")
+            } else {
+                $(this).parent().next().css("display","none")
+                isshowcomment = false
+            }
+    })
+    $(".zan").click(function () {
+        var dystyle=$(this);
+        var dynamic_id=$(this).next().next().text()
+        color16=colorRGBtoHex($(this).css("color"))
+        if (color16 == "#0fb9ef"){
+            $.ajax({
+                url: '{% url 'music:mydynamic_like'  %}',
+                type: "POST",
+                async: false,
+                data: {"dynamic_id": dynamic_id,"status":"zan"},
+                success: function (num) {
+                    dystyle.css("color","#ff0000")
+                    dystyle.text("赞("+num+")")
+                },
+                error: function () {
+                    alert(arguments[1]);
+                }
+            });
+        }else if(color16 == "#ff0000"){
+            $.ajax({
+                url: '{% url 'music:mydynamic_like'  %}',
+                type: "POST",
+                async: false,
+                data: {"dynamic_id": dynamic_id,"status":"cancel"},
+                success: function (num) {
+                    dystyle.css("color","#0fb9ef")
+                    dystyle.text("赞("+num+")")
+                },
+                error: function () {
+                    alert(arguments[1]);
+                }
+            });
+        }
+    })
+    function guanzhu(id){
+        $.ajax({
+            url:'{% url "music:guanzhu" %}',
+            type:'POST',
+            data:{"otheruser_id":id,"status":"guan"},
+            success:function(e){
+                if(e=="1"){
+                    alert("关注成功，可看到TA的动态")
+                    window.location.reload()
+                }else{
+                    alert("您已关注过TA了")
+                }
+            },
+        })
+    }
+    function colorRGBtoHex(color) {
+        var rgb = color.split(',');
+        var r = parseInt(rgb[0].split('(')[1]);
+        var g = parseInt(rgb[1]);
+        var b = parseInt(rgb[2].split(')')[0]);
+        var hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        return hex;
+    }
+    </script>
+{% endblock %}

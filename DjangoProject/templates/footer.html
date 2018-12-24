@@ -1,0 +1,67 @@
+<hr>
+<div style="width: 100%;height: 50px;margin-bottom:66px;background-color: #408af4;">
+    <div style="width: 80%;margin: 0 auto;text-align: center">@dm producer http://39.108.219.254/home</div>
+</div>
+<div class="audio-box">
+    <div class="audio-container">
+        <div class="audio-cover"></div>
+        <div class="audio-view">
+            <h3 class="audio-title">未知歌曲</h3>
+            <div class="audio-body">
+                <div class="audio-backs">
+                    <div class="audio-this-time">00:00</div>
+                    <div class="audio-count-time">00:00</div>
+                    <div class="audio-setbacks">
+                        <i class="audio-this-setbacks">
+                            <span class="audio-backs-btn"></span>
+                        </i>
+                        <span class="audio-cache-setbacks">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="audio-btn">
+                <div class="audio-select">
+                    <div class="audio-prev"></div>
+                    <div class="audio-play"></div>
+                    <div class="audio-next"></div>
+                    <div class="audio-menu"></div>
+                    <div class="audio-volume"></div>
+                </div>
+                <div class="audio-set-volume">
+                    <div class="volume-box">
+                        <i><span></span></i>
+                    </div>
+                </div>
+                <div class="audio-list">
+                    <div class="audio-list-head">
+                        <p>播放列表</p>
+                        <span class="menu-close">关闭</span>
+                    </div>
+                    <ul class="audio-inline">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+window.onload=function(){
+    $.ajax({
+        url:'{% url 'music:footlist'  %}',
+        type:"POST",
+        async:false,
+        success:function(data){
+            var audioFn = audioPlay({
+                    song : data,
+                    autoPlay : false  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+                });
+        },
+        error: function(){
+               alert(arguments[1]);
+            }
+        });
+}
+
+</script>

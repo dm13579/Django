@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}歌曲详情{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/mp3detail.css' %}"/>
+    <div class="cont_det">
+        <div class="detail_header">
+            <div class="album_img">
+                <div><img src="{{ albumimgs }}"></div>
+            </div>
+            <div class="song_detail">
+                <h1>{{ songname }}</h1>
+                <span>歌手：</span>
+                {% for ar in artist %}
+                    {% if ar is not null %}
+                        <h3><a href="/music/artistdetail/{{ ar.1 }}/{{ ar.0 }}">{{ ar.0 }}</a></h3>
+                    {% endif %}
+                {% endfor %}
+                <br>
+                <h3>所属专辑：<a href="/music/albumdetail/{{ al }}">{{ albumname }}</a></h3>
+                <br>
+                <button class="player">播放</button>
+                <button class="shoucang">收藏</button>
+                <button class="comment">评论</button>
+                <button class="download"><a href="/music/download_mp3/{{ id }}/{{ songname }}">下载</a></button>
+            </div>
+        </div>
+        <div class="lyric">
+            <h3>歌词</h3>
+            {{ lyric|linebreaksbr }}
+        </div>
+        <hr style="height: 10px;background-image: linear-gradient(to right, rgba(204,0,153, 0), rgba(204,0,153, 0.75), rgba(204,0,153, 0));">
+        <div class="mp3detail_commet">
+            <h3>评论</h3>
+            <div class="Main">
+                <div class="Input_Box">
+                    <textarea class="Input_text" placeholder="期待你的神评论..."></textarea>
+                    <div class="faceDiv"></div>
+                    <div class="Input_Foot">
+                        <a class="imgBtn" href="javascript:void(0);"></a>
+                        <a class="postBtn">确定</a>
+                    </div>
+                </div>
+            </div>
+            <p>最新评论({{ comment.count }})</p>
+            <hr style="width: 780px">
+            <div class="new_comment">
+                {% for com in comment %}
+                    {% for user in userlist %}
+                        {% if com.commentator == user.username %}
+                            <div class="coment_row">
+                                <div class="comment_img">
+                                    {% if user.userprofile.photo %}
+                                        <img src="{{ user.userprofile.photo | striptags }}">
+                                    {% else %}
+                                        <img src="{% static 'account/img/tou.jpg' %}">
+                                    {% endif %}
+                                </div>
+                                <div class="comment_body">
+                                    <p class="first_p"><a href="/music/otherinfo/{{ user.id }}">{{ com.commentator }}</a>:{{ com.body }}</p>
+                                    {% for comsecond in comment_second %}
+                                        {% if comsecond.commentator_id == com.id %}
+                                            <div class="comment_second">
+                                                <div>
+                                                    <p>{{ comsecond.huifupeople }}:{{ comsecond.body }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="time_like_btn">
+                                    <span>{{ com.created|date:"Y-m-d H:i" }}</span>
+                                    <span class="pli" style="display: none">{{ com.like }}</span>
+                                    <span style="display: none">{{ com.id }}</span>
+                                    <span class="huifu">回复</span>
+                                    {% if comment_like.count == 0 %}
+                                        <span class="like">赞({{ com.like }})&nbsp;&nbsp;&nbsp;</span>
+                                    {% else %}
+                                        {% for clike in comment_like %}
+                                            {% if clike.dianzanuser == request.user.username and com.id == clike.commentator_id %}
+                                                <span style="color:red;" class="like">赞({{ com.like }})&nbsp;&nbsp;&nbsp;</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="clear" style="clear: both"></div>
+                                </div>
+                                <div class="huifu_row">
+                                    <div class="Main">
+                                        <div class="Input_Box">
+                                            <textarea class="Input_text"
+                                                      placeholder="回复@{{ com.commentator }}"></textarea>
+                                            <div class="faceDiv"></div>
+                                            <div class="Input_Foot">
+                                                <a class="imgBtn" href="javascript:void(0);"></a>
+                                                <a class="huifuBtn">确定</a>
+                                                <span style="display: none">{{ com.id }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="top" style="width: 60px;height:60px;position:fixed;top:300px;right:200px;">
+        <img  style="width: 60px;height: 60px;" src="{% static 'music/img/top.png' %}">
+    </div>
+
+    <script src="{% static 'js/comment_textarea.js' %}"></script>
+    <script>
+    var len = $('.coment_row').length
+    for (var i = 0; i < len; i++) {
+        var classTmp = '.coment_row:eq(' + i + ') .time_like_btn';
+        if($(classTmp).find(".like").length <= 0){
+            var classTmp1 = '.coment_row:eq(' + i + ') .time_like_btn .clear';
+            var clikes=$(classTmp).children(".pli").text()
+            $(classTmp1).before("<span class=\"like\">赞("+clikes+")&nbsp;&nbsp;&nbsp;</span>")
+        }
+    }
+        $(".like").click(function () {
+            id = $(this).prev().prev().text()
+            like=$(this)
+            $.ajax({
+                url: '{% url 'music:comment_like'  %}',
+                type: "POST",
+                async: false,
+                data: {"id": id},
+                success: function (data) {
+                    if (data.state==true){
+                        like.css("color","red")
+                        like.html("赞("+data.msg+")&nbsp;&nbsp;&nbsp;")
+                    }else{
+                        like.css("color","#333")
+                        like.html("赞("+data.msg+")&nbsp;&nbsp;&nbsp;")
+                    }
+                },
+                error: function () {
+                    alert(arguments[1]);
+                }
+            });
+        })
+        var isshow = false;
+        $(".huifu").click(function () {
+            if (isshow == false) {
+                isshow = true
+                $(this).parent().next().slideDown(300)
+            } else {
+                $(this).parent().next().slideUp(300)
+                isshow = false
+            }
+        })
+        $(".huifuBtn").click(function () {
+            {% if not user.is_authenticated %}
+                layer.open({
+                    title: "前往登录",
+                    type: 1,
+                    area: ["400px", "200px"],
+                    skin: "layui-layer-rim",
+                    content: '<div style="text-align: center;margin-top:20px;"><p>未登录，不可评论</p><p>请点击确定前往登录</p></div>',
+                    btn: ['确定', '取消'],
+                    yes: function () {
+                        window.location.href = "/account/login";
+                    }
+                })
+            {% else %}
+                var body = $(this).parent().prev().prev().val()
+                var commentator_id = $(this).next().text()
+                if (body != "") {
+                    $.ajax({
+                        url: '{% url 'music:comment_song_second'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id": commentator_id, "body": body},
+                        success: function (data) {
+                            $(".huifu_row").slideUp(300)
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: false,
+                        time: 2000,
+                        type: 1,
+                        area: ["200px", "100px"],
+                        skin: "layui-layer-rim",
+                        content: '<div style="text-align: center;margin-top:40px;"><p>评论不能为空</p></div>',
+                    })
+                }
+            {% endif %}
+        })
+        $(".postBtn").click(function () {
+            {% if not user.is_authenticated %}
+                layer.open({
+                    title: "前往登录",
+                    type: 1,
+                    area: ["400px", "200px"],
+                    skin: "layui-layer-rim",
+                    content: '<div style="text-align: center;margin-top:20px;"><p>未登录，不可评论</p><p>请点击确定前往登录</p></div>',
+                    btn: ['确定', '取消'],
+                    yes: function () {
+                        window.location.href = "/account/login";
+                    }
+                })
+            {% else %}
+                body = $(".Input_text").val()
+                if (body != "") {
+                    $.ajax({
+                        url: '{% url 'music:comment_song'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id":{{ id }}, "body": body},
+                        success: function (data) {
+                            $(".Input_text").val("")
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                } else {
+                    layer.open({
+                        title: false,
+                        time: 2000,
+                        type: 1,
+                        area: ["200px", "100px"],
+                        skin: "layui-layer-rim",
+                        content: '<div style="text-align: center;margin-top:40px;"><p>评论不能为空</p></div>',
+                    })
+                }
+            {% endif %}
+        })
+
+        $(".player").click(function () {
+            $.ajax({
+                url: '{% url 'music:playmusic'  %}',
+                type: "POST",
+                async: false,
+                data: {"id":{{ id }}},
+                success: function (data) {
+                if(data=="2"){
+		    alert("无版权")
+		}else{
+                    var audioFn = audioPlay({
+                        song : data,
+                        autoPlay : true  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+                    });
+		}
+
+                },
+                error: function () {
+                    alert(arguments[1]);
+                }
+            });
+        })
+        $(".comment").click(function () {
+            var first=$('.mp3detail_commet').offset().top;
+            var second=$('.top01').offset().top;
+            var scrollTopPx = first-second
+            $("html, body").animate({
+                scrollTop: scrollTopPx
+            }, 1000);
+        })
+        $(".top").click(function () {
+            $("html, body").animate({
+                scrollTop: 0
+            }, 1000);
+        })
+        $(".shoucang").click(function(){
+            layer.open({
+				title:['收藏歌曲', 'background-color:#181818;color:#fff'],
+				type:1,
+				area:["400px","200px"],
+				skin:"layui-layer-rim",
+				content:'<span style="margin-left:50px;">选择你的歌单：</span><select class="select" style="margin: 20px auto">{% for g in gedan %}<option value="{{ g.gedanname }}">{{ g.gedanname }}</option>{% endfor %}</select>',
+				btn:['确定','取消'],
+                yes:function() {
+				    gedanname=$(".select").val()
+                    $.ajax({
+                        url: '{% url 'music:shoucangmusic'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id": {{ id }}, "gedanname": gedanname},
+                        success: function (data) {
+                            if(data=="1"){
+                                alert("收藏成功")
+                                 {#layer.msg('收藏成功', {icon: 1,time: 1000},function(){parent.location.reload();})#}
+							}else{
+                                alert("歌曲已在此歌单")
+								 {#layer.msg('歌曲已在此歌单', {icon: 1,time: 1000},function(){parent.location.reload();})#}
+							}
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                }
+            })
+        })
+    </script>
+{% endblock %}

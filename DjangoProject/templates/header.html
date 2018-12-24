@@ -1,0 +1,129 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'account/css/css.css' %}"/>
+<link rel="stylesheet" href="{% static 'music/css/audio.css' %}"/>
+<script src="{% static 'account/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'js/audio.js' %}"></script>
+<script src="{% static 'music/layer.js' %}"></script>
+<!--top-->
+<div class="top01">
+	<div class="top02">
+    	<div class="top02_l"><a href="/home"><img src="{% static 'account/img/timg.jpg' %}"></a></div>
+        <div class="top02_c">
+        	<div class="dh">
+                <ul>
+                    <li id="a01"><a href="/home" class="a01">发现音乐</a>
+                         <div class="dh_xl01" id="b01">
+                            <div class="dh_xl02">
+                                <div class="dh_xl02_l">
+                                    <a id="compare" href="/home">推荐</a>
+                                    <a id="paihang" href="{% url 'music:ranking' 19723756 %}">排行榜</a>
+                                    <a id="dang" href="{% url 'music:hot_gedan' %}">歌单</a>
+{#                                    <a id="love" href="#">电台</a>#}
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="{% url 'music:mymusic' 0 %}" class="a01">我的音乐</a>
+                    </li>
+                    <li><a href="{% url 'music:mydynamic' %}" class="a01">动态</a>
+                    </li>
+                 <div class="clear"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="top02_r">
+            <img src="{% static 'account/img/sousuo.png' %}" class="search_dk">
+            <img src="{% static 'account/img/sousuo01.png' %}" class="search_gb">
+        </div>
+        <div class="top02_m">
+            {% if user.is_authenticated %}
+                {% if user.userprofile.photo %}
+                    <div class="img">
+                        <img src="{{ user.userprofile.photo | striptags }}">
+                        <div class="m_xiala">
+                            <li><a href="{% url 'music:myroom' %}"><span>我的主页</span></a></li>
+                            <li><a href="{% url 'account:myself_info' %}"><span>个人设置</span></a></li>
+                            <li><a href="{% url 'account:user_logout' %}"><span>退出</span></a></li>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="img">
+                        <img src="{% static 'account/img/tou.jpg' %}">
+                        <div class="m_xiala">
+                            <li><a href="{% url 'music:myroom' %}"><span>我的主页</span></a></li>
+                            <li><a href="{% url 'account:myself_info' %}"><span>个人设置</span></a></li>
+                            <li><a href="{% url 'account:user_logout' %}"><span>退出</span></a></li>
+                        </div>
+                    </div>
+
+                {% endif %}
+            {% else %}
+                <span><a class="top02_mregister" href="{% url 'account:user_register' %}">注册</a></span>
+                <span class="fenge">&nbsp;/&nbsp;</span>
+                <span><a class="top02_mlogin" href="{% url 'account:user_login' %}">登录</a></span>
+            {% endif %}
+
+        </div>
+        <!--搜索-->
+        <div class="search02">
+        	<div class="search03">
+            	<div class="search05">
+                    <a>
+                        <img src="{% static 'account/img/sousuo03.png' %}" width="38" height="30">
+                    </a>
+                </div>
+            	<div class="search04">
+                    <input name="" type="text" class="in">
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--搜索 end-->
+        <div class="clear"></div>
+    </div>
+</div>
+<hr class="header_hr">
+<script type="text/javascript">
+$(document).ready(function(){
+    $("body").keydown(function() {
+	contenttext=$(".search04 input").val()
+             if (event.keyCode == "13"&&contenttext!="") {//keyCode=13是回车键
+                 $(".search05 a img").click();
+             }
+         });
+    $(".search05 a img").click(function(){
+        contenttext=$(".search04 input").val()
+        $.ajax({
+			url:'{% url 'music:searchlistmesssage'  %}',
+			type:"POST",
+            async:false,
+			data:{"musicname":contenttext},
+			success:function(e){
+                window.location.href='{% url 'music:searchlist' %}'
+			},
+		});
+    })
+	$("#a01").hover(function(){
+		$(this).children("#b01").stop(true, false).slideToggle(500);
+	})
+    $(".search_dk").click(function(){
+        $(".search02").slideToggle();
+        $(".search_dk").hide();
+        $(".search_gb").show();
+    })
+    $(".search_gb").click(function(){
+        $(".search02").slideUp();
+        $(".search_dk").show();
+        $(".search_gb").hide();
+    })
+    $(".search05").click(function(){
+        $(".search02").slideUp();
+        $(".search_dk").show();
+        $(".search_gb").hide();
+    })
+});
+</script>
+
+
+

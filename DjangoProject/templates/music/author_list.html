@@ -1,0 +1,19 @@
+{% extends "searchlist.html" %}
+{% load staticfiles %}
+{% block searchcontent %}
+    <div class="person_nav">
+        <a href="{% url 'music:searchlist' %}"><span class="person_song" style="background-color: white;border-bottom: 1px;">单曲</span></a>
+        <a href="{% url 'music:authorlist' %}"><span class="person_author" style="background-color: #0FB9EF;border-bottom: 1px;">歌手</span></a>
+        <a href="{% url 'music:albumlist' %}"><span class="person_album" style="background-color: white;border-bottom: 1px;">专辑</span></a>
+    </div>
+    <div class="search_list">
+        <p style="color: #FF34B3">搜索"{{ music_name }}"共搜索到{{ length }}个歌手</p>
+        {% for song in listartist %}
+            <div class="list_msk">
+                <a href="/music/artistdetail/{{ song.0 }}/{{ song.1 }}"><img src="{{ song.2 }}"></a>
+                <p class="font_album"><a href="/music/artistdetail/{{ song.0 }}/{{ song.1 }}">{{ song.1 }}</a></p>
+            </div>
+        {% endfor %}
+        {% include "paginator.html" %}
+    </div>
+{% endblock %}

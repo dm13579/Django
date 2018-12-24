@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}我的音乐{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/mymusic.css' %}"/>
+    <div class="mymusic_content">
+        <div class="gedan">
+            <div class="create_gedan">
+                <button class="create_button">创建</button>
+                <p class="create_p"><span class="spansanjiao">▶</span>&nbsp;创建的歌单({{ gedans.count }})&nbsp;&nbsp;&nbsp;</p>
+                <div class="create_content" style="display: none;">
+                    {% for gedan in gedans %}
+                        <span style="display: none;">{{ gedan.id }}</span>
+                        <div class="gedan_div1">
+                                {% if gedan.gedansong.count != 0 %}
+                                    <div class="gedan_div1_1"><img src="{{ gedan.gedansong.all.first.music_albumimg }}"></div>
+                                {% else %}
+                                    <div class="gedan_div1_1"><img src="{% static 'music/img/msk.jpg' %}"></div>
+                                {% endif %}
+                            <div class="gedan_div1_2">
+                                <p>{{ gedan.gedanname }}</p>
+                                <br>
+                                <p class="songcount">{{ gedan.gedansong.count }}首
+                                    <span class="deletegedan" style="float:right;color: #0FB9EF">&nbsp;删除</span>
+                                    <span class="editgedan" style="float:right;color: #0FB9EF">命名</span>
+                                    <span style="display: none">{{ gedan.id }}</span>
+                                </p>
+                            </div>
+                        </div></a>
+                    {% endfor %}
+                </div>
+                <div style="clear: both"></div>
+            </div>
+            <div class="like_gedan">
+                <p class="create_p"><span class="spansanjiao">▶</span>&nbsp;收藏的歌单({{ shougedans.count }})</p>
+                <div class="like_content" style="display: none;">
+                    {% for gedan in shougedans %}
+                        <span style="display: none;">{{ gedan.id }}</span>
+                        <div class="gedan_div1">
+                            {% if gedan.gedansong.count != 0 %}
+                                <div class="gedan_div1_1"><img src="{{ gedan.gedansong.all.first.music_albumimg }}"></div>
+                            {% else %}
+                                <div class="gedan_div1_1"><img src="{% static 'music/img/msk.jpg' %}"></div>
+                            {% endif %}
+                            <div class="gedan_div1_2">
+                                <p>{{ gedan.gedanname }}</p>
+                                <p class="songcount">{{ gedan.gedansong.count }}首
+                                    <span class="delete" style="float:right;color: #0FB9EF">删除</span>
+                                    <span style="display: none">{{ gedan.id }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% if gedan is not None %}
+        <div class="contt">
+            <div class="contt_head">
+                <div class="contt_head1">
+                    <div class="contt_head1_img">
+                        {% if gedan.gedansong.count != 0 %}
+                            <img src="{{ gedan.gedansong.all.first.music_albumimg }}">
+                        {% else %}
+                            <img src="{% static 'music/img/msk.jpg' %}">
+                        {% endif %}
+                    </div>
+                    <div class="contt_head1_msg">
+                        <span>歌单</span><p>{{ gedan.gedanname }}</p>
+                        <div class="create_people">
+                            <img src="{{ gedan.create_user.userprofile.photo }}">
+                            <a href="/music/otherinfo/{{ gedan.create_user.id }}">{{ gedan.create_user.username }}</a><br>
+                            <p>{{ gedan.created|date:"Y-m-d" }}&nbsp;创建<p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contt_list">
+                <div class="contt_list_head">
+                    <p>歌曲列表</p>
+                    <hr style="height: 3px;border: 0;background-color: red;">
+                    <table>
+                        <tr class="header">
+                            <th></th>
+                            <th>歌曲</th>
+                            <th>歌手</th>
+                            <th>专辑</th>
+                            <th></th>
+                        </tr>
+                        {% for song in gedan.gedansong.all %}
+                            <tr class="ctn">
+                                <td>{{ forloop.counter }}</td>
+                                <td>
+                                    <a href="/music/mp3detail/{{ song.music_id }}">{{ song.music_name }}</a></td>
+                                <td>
+                                    <a href="/music/artistdetail/{{ song.music_artist_id }}/{{ song.music_artist }}">{{ song.music_artist }}</a>&nbsp;
+                                </td>
+                                <td>
+                                    <a href="/music/albumdetail/{{ song.music_album_id }}">{{ song.music_album }}</a>&nbsp;
+                                </td>
+                                <td>
+                                    <span onclick="player({{ song.music_id }})">播放</span>&nbsp;
+                                    <span onclick="shoucang({{ song.music_id }})">收藏</span>&nbsp;
+				    <span><a style="color:#d0b4ce" href="/music/download_mp3/{{ song.music_id }}/{{ song.music_name }}">下载</a></span>
+                                    <span onclick="del({{ song.id }},'{{ gedan.gedanname }}','{{ song.music_name }}')">删除</span>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div calss="contt">
+
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        $('.gedan_div1').bind('click', function (e) {
+            var o = e.target;
+            var id = $(this).prev().text()
+            if($(o).closest('.songcount').length==0){//不是特定区域
+                window.location.href="/music/mymusic/"+id
+            }
+        });
+        var iscreate_show = false;
+        $(".create_p").click(function () {
+            if (iscreate_show == false) {
+                iscreate_show = true
+                $(this).next("div").css("display","block")
+                $(this).children(".spansanjiao").text("▼")
+            } else {
+                $(this).next("div").css("display","none")
+                $(this).children(".spansanjiao").text("▶")
+                iscreate_show = false
+            }
+        })
+        $(".create_button").click(function(){
+            layer.open({
+				title:['新增歌单', 'background-color:#181818;color:#fff'],
+				type:1,
+				area:["400px","200px"],
+				skin:"layui-layer-rim",
+				content:'<div style="margin:20px auto"><p style="text-align:center;">' +
+                    '歌单名：{{ gedan_form.gedanname }}</p><p style="color:#9C9C9C;text-align:center;margin-top:10px">可通过收藏将歌曲添加到歌单中</p></div>',
+				btn:['确定','取消'],
+				yes:function() {
+                    gedan_name = $('#id_gedanname').val();
+                    if(gedan_name==""){
+                        alert("请输入歌单名")
+                    }else{
+                         $.ajax({
+                            url:'{% url "music:mymusic" 0 %}',
+                            type:'POST',
+                            data:{"gedan_name":gedan_name},
+                            success:function(e){
+                                if(e=="1"){
+                                    layer.msg('成功创建歌单', {icon: 1,time: 1000},function(){parent.location.reload();})
+                                }else{
+                                    layer.msg('此歌单已存在，请更换名称', {icon: 1,time: 1000},function(){parent.location.reload();})
+                                }
+                            },
+                    })
+                    }
+                }
+            });
+        })
+        function player(id){
+            $.ajax({
+                url:'{% url 'music:playmusic'  %}',
+                type:"POST",
+                async:false,
+                data:{"id":id},
+                success:function(data){
+                if(data=="2"){
+		    alert("无版权")
+		}else{
+                    var audioFn = audioPlay({
+                        song : data,
+                        autoPlay : true  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+                    });
+		}
+                },
+                error: function(){
+                       alert(arguments[1]);
+                }
+            });
+        };
+        function shoucang(id){
+            layer.open({
+                title:['收藏歌曲', 'background-color:#181818;color:#fff'],
+                type:1,
+                area:["400px","200px"],
+                skin:"layui-layer-rim",
+                content:'<span style="margin-left:50px;">选择你的歌单：</span><select class="select" style="margin: 20px auto">{% for g in gedans %}<option value="{{ g.gedanname }}">{{ g.gedanname }}</option>{% endfor %}</select>',
+                btn:['确定','取消'],
+                yes:function() {
+                    gedanname=$(".select").val()
+                    $.ajax({
+                        url: '{% url 'music:shoucangmusic'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id": id, "gedanname": gedanname},
+                        success: function (data) {
+                            if(data=="1"){
+                                 layer.msg('收藏成功', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }else{
+                                 layer.msg('歌曲已在此歌单', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                }
+            })
+        };
+        function del(song_id,gedan_name,song_name){
+            layer.open({
+                title:['删除歌曲', 'background-color:#181818;color:#fff'],
+                type:1,
+                area:["400px","150px"],
+                skin:"layui-layer-rim",
+                content:'<span style="margin-left:50px;padding-top:50px;">从歌单“'+gedan_name+'”：中删除“'+song_name+'”</span>',
+                btn:['确定','取消'],
+                yes:function() {
+                    $.ajax({
+                        url: '{% url 'music:gedan_chuli'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id": song_id, "status": "deletesong"},
+                        success: function (e) {
+                            if(e=="4"){
+                                layer.msg('删除成功', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }else{
+                                layer.msg('删除失败', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                }
+            })
+        };
+        $(".delete").click(function () {
+            var name=$(this).parents(".songcount").prev("p").text();
+            var id=$(this).next().text()
+            layer.open({
+                title: "删除歌单",
+                type: 1,
+                area: ["400px", "200px"],
+                skin: "layui-layer-rim",
+                content: '<div style="margin-top:20px;text-align:center;"><p>是否要确定删除“' + name + '”歌单</p></div>',
+                btn: ['确定', '取消'],
+                yes: function () {
+                    $.ajax({
+                        url:'{% url 'music:shoucanggedan' %}',
+                        type:"POST",
+                        data:{"id":id,"status":"delete"},
+                        success:function(e){
+                            if(e=="1"){
+                                layer.msg('删除成功', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }else{
+                                layer.msg('删除失败', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }
+                        },
+                    })
+                }
+            })
+        });
+        $(".editgedan").click(function () {
+            var name=$(this).parents(".songcount").prev().prev("p").text();
+            var id = $(this).next().text()
+            layer.open({
+                title:['更改歌单名', 'background-color:#181818;color:#fff'],
+                type:1,
+                area:["400px","200px"],
+                skin:"layui-layer-rim",
+                content:'<div style="margin-top:20px;text-align:center;"><p>请编辑的歌单名称</p><p><input type="text" id="new_name" value="'+name+'"></p></div>',
+                btn:['确定','取消'],
+                yes:function() {
+                    new_name = $('#new_name').val();
+                    if (name==new_name){
+                        alert("请输入不同的名字")
+                    }else{
+                        $.ajax({
+                            url:'{% url 'music:gedan_chuli' %}',
+                            type:"POST",
+                            data:{"id":id,"new_name":new_name,"status":"edit"},
+                            success:function(e){
+                                if(e=="1"){
+                                    layer.msg('修改成功', {icon: 1,time: 1000},function(){parent.location.reload();})
+                                }else if(e=="2"){
+                                    layer.msg('您已创建此歌单', {icon: 1,time: 1000},function(){parent.location.reload();})
+                                }
+                            },
+                        })
+                    }
+                }
+            })
+        });
+        $(".deletegedan").click(function () {
+            var id = $(this).next().next().text();
+            var name=$(this).parents(".songcount").prev().prev("p").text();
+            layer.open({
+                title: "删除歌单",
+                type: 1,
+                area: ["400px", "200px"],
+                skin: "layui-layer-rim",
+                content: '<div style="margin-top:20px;text-align:center;"><p>是否要确定删除“' + name + '”歌单</p></div>',
+                btn: ['确定', '取消'],
+                yes: function () {
+                    $.ajax({
+                        url:'{% url 'music:gedan_chuli' %}',
+                        type:"POST",
+                        data:{"id":id,"status":"delete"},
+                        success:function(e){
+                            if(e=="3"){
+                                 layer.msg('删除成功', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }else{
+                                 layer.msg('删除失败', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }
+                        },
+                    })
+                }
+            });
+        })
+    </script>
+
+{% endblock %}

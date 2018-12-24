@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}个人设置{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'account/css/myself_edit.css' %}"/>
+<div class="myself_back">
+    <div class="myself_content">
+        <div class="myself_content_form">
+            <p class="myself_title">个人设置</p>
+
+            {%block myself_content%}{%endblock%}
+        </div>
+    </div>
+</div>
+<script src="{% static 'account/js/dateJs.fei.js' %}"></script>
+<script src="{% static 'account/js/layer.js' %}"></script>
+<script>
+function upload_image_layer(){
+			layer.open({
+				title:"上传头像",
+				area:['870px','550px'],
+				type:2,
+				content:"{% url 'account:my_image' %}",
+			});
+		}
+function calc_onclick(){
+     $("#dateOuter").css("display","block")
+}
+
+var nav = $('nav');
+var line = $('<div />').addClass('line');
+
+line.appendTo(nav);
+var active = nav.find('.active');
+var pos = 0;
+var wid = 0;
+
+if(active.length) {
+  pos = active.position().left;
+  wid = active.width();
+  line.css({
+    left: pos,
+    width: wid
+  });
+}
+
+</script>
+{% endblock %}

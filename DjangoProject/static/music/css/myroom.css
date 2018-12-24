@@ -1,0 +1,203 @@
+.room{
+    width: 80%;
+    margin: 0 auto;
+    border-left: 1px solid #e1c2c5;
+    border-right: 1px solid #e1c2c5;
+}
+.room_head{
+    width: 100%;
+}
+.room_head .room_img{
+    width: 170px;
+    height: 170px;
+    margin: 30px 25px 40px 10px;
+    display: inline-block;
+}
+.room_head .room_img img{
+    width: 170px;
+    height: 170px;
+}
+.room_head .room_msg{
+    width: 700px;
+    display: inline-block;
+    position: absolute;
+    margin-top: 40px;
+}
+.room_head .room_msg h1:first-child{
+    margin-bottom: 15px;
+}
+.room_head .room_msg h1:first-child button{
+    float: right;
+    height: 30px;
+    width: 100px;
+}
+.room_head .room_msg h1:first-child button:hover{
+    cursor: pointer;
+}
+.dongtai{
+    font-size: 20px;
+}
+.room_head .room_msg p{
+    margin-top: 15px;
+}
+.room_content{
+    width: 100%;
+}
+.room_content h1{
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+.room_gedan{
+    width: 175px;
+    height: 175px;
+    margin: 10px;
+    display: inline-block;
+    background-color: #bae3fb;
+}
+.room_gedan .room_img{
+    width: 130px;
+    height: 130px;
+    margin: 5px auto;
+}
+.room_gedan img{
+    width: 130px;
+    height: 130px;
+}
+.room_gedan p{
+    font-size: 15px;
+    margin-left: 20px;
+}
+.room_gedan:hover{
+    cursor: pointer;
+}
+.room_msg{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.room_msg .dynamic_guanzhu{
+    margin-top: 10px;
+}
+.room_msg .dynamic_guanzhu div:nth-child(1){
+    background-color: #ebeef7;
+    display: inline-block;
+    width: 100px;
+    height: 70px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 70px;
+}
+.room_msg .dynamic_guanzhu div:nth-child(2){
+    background-color: #ebeef7;
+    display: inline-block;
+    width: 100px;
+    height: 70px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 70px;
+}
+.room_msg .dynamic_guanzhu div:hover{
+    color: #0FB9EF;
+    cursor: pointer;
+}
+.fensi_detail_list{
+    width: 100%;
+    height: 70px;
+}
+.fensi_detail_list img{
+    width: 50px;
+    height: 50px;
+}
+.room_content_msg{
+    width: 90%;
+    margin: 30px auto;
+}
+.fen{
+    margin-left: 5px;
+    display: inline-block;
+    position: absolute;
+}
+.fen div{
+    display: inline-block;
+    color: #000;
+}
+
+.fen a{
+    color: #0FB9EF;
+}
+.fen a:hover{
+    text-decoration: underline;
+}
+.fen button{
+    background-color: #0aa1ed;
+    width: 80px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+}
+.fen button:hover{
+    cursor: pointer;
+
+}
+.room_content table {
+    border: 0px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.room_content table .header {
+    background-color: #f3ebdb;
+    color: #d0b4ce;
+    font-size: 17px;
+}
+
+.room_content table th:first-child {
+    width: 70px;
+    height: 50px;
+    text-align: left;
+}
+
+.room_content table th:nth-child(2) {
+    width: 200px;
+    height: 50px;
+    text-align: left;
+}
+
+.room_content table th:nth-child(3) {
+    width: 300px;
+    text-align: left;
+}
+
+
+.room_content table .ctn td:first-child {
+    text-align: center;
+}
+
+.room_content table .ctn {
+    height: 50px;
+    color: #d0b4ce;
+}
+
+.room_content table .ctn td {
+    font-size: 12px;
+}
+
+.room_content table .ctn a:hover {
+    color: #0FB9EF;
+}
+
+.room_content table tr:nth-child(2n+3) {
+    background-color: #d4daff;
+}
+
+.room_content table .ctn td:nth-child(4) {
+    font-size: 12px;
+    color: #c5c3c3;
+}
+
+.room_content table .ctn span:hover {
+    text-decoration: #8B8989;
+    color: #0FB9EF;
+    cursor: pointer;
+}

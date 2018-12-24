@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}home{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'account/css/style.css' %}"/>
+    <div class="slider">
+        <div class="main">
+            <div class="main-i main-i-active">
+                <img src="{% static 'account/img/lunbo1.jpg' %}"/>
+            </div>
+            <div class="main-i">
+                <img src="{% static 'account/img/lunbo2.jpg' %}"/>
+            </div>
+            <div class="main-i">
+                <img src="{% static 'account/img/lunbo2.png' %}"/>
+            </div>
+            <div class="main-i">
+                <img src="{% static 'account/img/lunbo3.jpg' %}"/>
+            </div>
+            <div class="main-i">
+                <img src="{% static 'account/img/lunbo4.jpg' %}"/>
+            </div>
+        </div>
+       <div class="ctrl">
+            <a class="ctrl-i ctrl-i-active" href="javascript:;">
+                <img src="{% static 'account/img/lunbo1.jpg' %}"/>
+            </a>
+            <a class="ctrl-i" href="javascript:;">
+                <img src="{% static 'account/img/lunbo2.jpg' %}"/>
+            </a>
+            <a class="ctrl-i" href="javascript:;">
+                <img src="{% static 'account/img/lunbo2.png' %}"/>
+            </a>
+            <a class="ctrl-i" href="javascript:;">
+                <img src="{% static 'account/img/lunbo3.jpg' %}"/>
+            </a>
+            <a class="ctrl-i" href="javascript:;">
+                <img src="{% static 'account/img/lunbo4.jpg' %}"/>
+            </a>
+        </div>
+   </div>
+    <div class="compare_content">
+        <div class="hot_commend">
+            <h1>热门推荐</h1>
+            <hr style="height: 2px;margin-bottom:20px;background-color: red;border: 0px;margin-top: 10px">
+            {% for list in hotcommendlist %}
+                <div class="hot_commendlist">
+                    <div class="hot_commendlist_img"><a href="/music/system_gedan/{{ list.0 }}"><img src="{{ list.2 }}"></a></div>
+                    <div class="hot_commendlist_msg"><span>{{ list.1 }}</span></div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="hot_commend">
+            <h1>个性推荐</h1>
+            <hr style="height: 2px;margin-bottom:20px;background-color: red;border: 0px;margin-top: 10px">
+            {% for list in newcommendlist %}
+                <div class="hot_commendlist">
+                    <div class="hot_commendlist_img"><a href="/music/system_gedan/{{ list.0 }}"><img src="{{ list.2 }}"></a></div>
+                    <div class="hot_commendlist_msg"><span>{{ list.1 }}</span></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+<script type="text/javascript">
+    var index=0,timer;
+    $("#compare").css("background-color","#8B7D6B")
+    $('#paihang').css("background-color","red")
+    $("#dang").css("background-color","red")
+    $(".ctrl-i").click(function () {
+        clearInterval(timer);
+        index=$(this).index();
+        slide (index);
+        timerF();
+    })
+
+    $(document).ready(function () {
+        timerF();
+    })
+
+    function timerF () {
+        timer=setInterval(function(){
+            index++;
+            if (index>=5) {
+                index=0;
+            }
+            slide(index);
+        },3000)
+    }
+
+    function slide (index) {
+        $(".ctrl .ctrl-i").eq(index).addClass("ctrl-i-active").siblings().removeClass("ctrl-i-active");
+        $(".main .main-i").eq(index).addClass("main-i-active");
+        setTimeout(function(){
+            $(".main .main-i").eq(index).siblings().removeClass("main-i-active");
+        },500)
+    }
+
+    //鼠标移到图片上禁止滚动，鼠标移开开始滚动
+    $(".main-i").hover(function () {
+        clearInterval(timer);
+    },function () {
+        timerF();
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,235 @@
+.dynamic_content{
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    border-left: 1px solid #e1c2c5;
+    border-right: 1px solid #e1c2c5;
+}
+.dynamic_content .dynamic_content_left{
+    width: 64%;
+    display: inline-block;
+    min-height:600px;
+    border-right: 1px solid #4b4141;
+}
+.dynamic_content .dynamic_content_right {
+    width: 36%;
+    display: inline-block;
+    position: absolute;
+    min-height: 600px;
+}
+.dynamic_content .dynamic_content_head{
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.dynamic_content .dynamic_content_head h1{
+    float: left;
+}
+.dynamic_content .dynamic_content_head button{
+    float: right;
+    height: 30px;
+    width: 80px;
+    background-color: white;
+    border-radius: 50px;
+    border: 1px solid #babcb6;
+}
+.dynamic_content .dynamic_content_head button:hover{
+    cursor: pointer;
+}
+.dynamic_content_right_head{
+    width: 90%;
+    margin: 50px auto;
+    margin-bottom: 10px;
+    height: 100px;
+}
+.dynamic_content_right_head  .dynamic_head_img{
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+}
+.dynamic_content_right_head img{
+    width: 80px;
+    height: 80px;
+
+}
+.dynamic_head_name{
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    position: absolute;
+    margin-left: 20px;
+}
+.dynamic_content_left_content{
+    width: 90%;
+    margin: 30px auto;
+}
+.dynamic_list{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.left_head{
+    width: 100%;
+    height: 50px;
+}
+.left_head_img{
+    display: inline-block;
+}
+.left_head_msg{
+    display: inline-block;
+}
+.left_head_msg a{
+    color: #0FB9EF;
+}
+.left_head_msg a:hover{
+    text-decoration: underline;
+}
+.left_content{
+    background-color: #ebeff8;
+    margin-left: 50px;
+    margin-top: 30px;
+    min-height: 100px;
+    padding: 10px;
+}
+.left_head .left_head_img img{
+    width: 50px;
+    height: 50px;
+}
+.dynamic_list_foot{
+    height: 40px;
+}
+.dynamic_list_foot .comment{
+    float: right;
+    color: #0FB9EF;
+}
+.dynamic_list_foot .zan{
+    float: right;
+    color: #0FB9EF;
+}
+.dynamic_list_foot .zan:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.dynamic_list_foot .comment:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.dynamic_list_comment{
+    margin-left: 50px;
+    background-color: #e1e4ec;
+    min-height: 150px;
+    padding-top: 10px;
+}
+.dynamic_guanzhu{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.dynamic_guanzhu div:nth-child(1){
+    background-color: #ebeef7;
+    display: inline-block;
+    width: 100px;
+    height: 70px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 70px;
+}
+.dynamic_guanzhu div:nth-child(2){
+    background-color: #ebeef7;
+    display: inline-block;
+    width: 100px;
+    height: 70px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 70px;
+}
+.dynamic_guanzhu div:hover{
+    color: #0FB9EF;
+    cursor: pointer;
+}
+.right_hot_user{
+    width: 90%;
+    margin: 0 auto;
+}
+.right_hot_user img{
+    width: 50px;
+    height: 50px;
+}
+.right_hot_user .right_hot_user_list{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+}
+.right_hot_user_msg{
+    width: 200px;
+    height: 50px;
+    float: right;
+    margin-right: 70px;
+}
+.right_hot_user_msg a{
+    color: #0FB9EF;
+}
+.right_hot_user_msg a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.right_hot_comment{
+    width: 90%;
+    margin: 0 auto;
+}
+.right_hot_user_msg button{
+    background-color: #0aa1ed;
+    width: 80px;
+    height: 30px;
+    border: 0;
+    border-radius: 5px;
+}
+.right_hot_user_msg button:hover {
+    cursor: pointer;
+}
+.dynamic_list_comment textarea{
+    margin-left: 10px;
+}
+.dynamic_list_comment button{
+    float: right;
+    margin-right: 10px;
+    width: 70px;
+    height: 30px;
+}
+.dynamic_list_comment button:hover{
+    cursor: pointer;
+}
+.dynamic_list_comment .comment_list{
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    min-height: 70px;
+    padding: 10px;
+    background-color: #c0c3cb;
+}
+.dynamic_list_comment .comment_list img{
+    width: 50px;
+    height: 50px;
+}
+.commentator_msg{
+    display: inline-block;
+    position: absolute;
+    margin-left: 10px;
+    word-wrap:break-word
+}
+.commentator_msg a{
+    color: #0FB9EF;
+}
+.commentator_msg a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.commentator_msg p{
+   word-wrap:break-word;
+    width: 450px;
+}
+.fenxiang:hover{
+    cursor: pointer;
+}
+.cancel:hover{
+     cursor: pointer;
+}

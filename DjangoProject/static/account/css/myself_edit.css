@@ -1,0 +1,247 @@
+.myself_back{
+    background-color:#DCDCDC;
+}
+.myself_content{
+    margin: 0 auto;
+    background-color: white;
+    width: 80%;
+    height: 700px;
+}
+.myself_content_form{
+    margin: 0 auto;
+    width: 90%;
+}
+.myself_title{
+    font-size: 30px;
+    padding-top: 50px;
+}
+.myself_nav{
+    margin-top: 20px;
+}
+.myself_nav nav {
+  position: relative;
+  padding-bottom: 12px;
+}
+.myself_nav nav .line {
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  margin: 10px 0 0 0;
+  background: #FF1847;
+}
+.myself_nav nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.myself_nav nav ul li {
+  margin: 0 40px 0 0;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+.myself_nav nav ul li:hover {
+  opacity: 0.7;
+}
+.myself_nav nav ul li.active {
+  opacity: 1;
+}
+.myself_nav nav ul li:last-child {
+  margin-right: 0;
+}
+.myself_nav nav ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+}
+.myself_form1{
+    margin-top: 20px;
+}
+.myself_form1 .edit{
+    width: 50%;
+    height: 35px;
+    margin-bottom: 10px;
+
+}
+.myself_form1 .edit_span {
+    height: 35px;
+    width: 40px;
+    display: inline-block;
+}
+.myself_form1 .edit_username{
+
+    height: 35px;
+    width: 250px;
+    display: inline-block;
+
+}
+.myself_form1 .edit_birth{
+    border: 1px solid #CDC1C5;
+    height: 35px;
+    width: 250px;
+    display: inline-block;
+
+}
+.myself_form1 .edit1 {
+    width: 50%;
+    height: 135px;
+    margin-bottom: 10px;
+
+}
+.myself_form1 .edit2 {
+    width: 50%;
+    height: 35px;
+}
+.myself_form1 .edit3 {
+    width: 50%;
+    height: 35px;
+    margin-bottom: 40px;
+
+}
+.myself_form1 .edit4 {
+    width: 50%;
+    height: 35px;
+    margin-bottom: 10px;
+
+}
+.myself_form1 .edit1 .edit_span{
+    position: relative;
+    top: -110px;
+
+}
+.myself_form1  .edit3 input{
+    border: 0;
+}
+
+.edit_aboutme{
+    border: 1px solid #CDC1C5;
+    height: 123px;
+    width: 250px;
+    display: inline-block;
+}
+.edit_aboutme textarea{
+    border: 0px;
+    overflow: hidden;
+}
+.myself_btn{
+    border: 0px;
+    width: 100px;
+    height:40px;
+    background-color: #7D9EC0;
+    border-radius: 5px;
+    font-size: 15px;
+    color:white;
+}
+.edit3 img{
+    width: 35px;
+    height: 35px;
+    position: relative;
+    right: 40px;
+    top: 17px;
+}
+.everyWeekDay .weekday,.everyDay .days {
+    /*解决span不支持width属性*/display: -moz-inline-box;
+    display: inline-block;
+    margin: 5px 0 0 20px;
+    text-align: center;
+    width: 20px;border: 1px solid #F7F7F7;
+    cursor: pointer;
+}
+.marginTop{
+    margin-top: 5px;
+}
+.selectStyle{
+    padding-left: 10px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    margin: 0 10px 0 10px;
+    width: 60px;
+    border-color: #0FB9EF;
+    color: #0FB9EF;}
+.myself_tou{
+    margin-top: 20px;
+}
+.myself_tou .myself_touimg{
+    border: 1px solid palevioletred;
+    width: 200px;
+    height: 200px;
+}
+.myself_tou .myself_touimg img{
+    width: 200px;
+    height: 200px;
+}
+.myself_tou  button {
+    border: 0px;
+    width: 100px;
+    height:40px;
+    margin-top: 20px;
+    background-color: #7D9EC0;
+    border-radius: 5px;
+    font-size: 15px;
+    color:white;
+}
+.myself_tou  button:hover{
+    cursor: pointer;
+}
+.myself_btn:hover{
+    cursor: pointer;
+}
+#dateOuter{
+    display: none;
+}
+.myself_mi{
+    margin-top: 20px;
+}
+.updatepas{
+    border: 0px;
+    width: 100px;
+    height:40px;
+    background-color: #7D9EC0;
+    border-radius: 5px;
+    font-size: 15px;
+    color:white;
+}
+.pwd_xing{
+    color:red;
+    display: inline-block;
+}
+.initialpwd input{
+    border: 1px solid #CDC1C5;
+    height: 35px;
+    width: 250px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.newfirstpwd input{
+    border: 1px solid #CDC1C5;
+    height: 35px;
+    width: 250px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.secondfirstpwd input{
+    border: 1px solid #CDC1C5;
+    height: 35px;
+    width: 250px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.myself_mi span{
+    display: inline-block;
+    width:70px;
+}
+.mysself_mi_error{
+    font-size: 14px;
+    color: red;
+}
+.mysself_error{
+    font-size: 14px;
+    color: red;
+}

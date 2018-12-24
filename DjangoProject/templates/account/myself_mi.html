@@ -1,0 +1,41 @@
+{% extends "myself_edit.html" %}
+{% load staticfiles %}
+{%block myself_content%}
+    <div class="myself_nav">
+        <nav>
+            <ul>
+                <li ><a href="{% url 'account:myself_info' %}">基本设置</a></li>
+                <li><a href="{% url 'account:myself_tou' %}">头像修改</a></li>
+                <li class="active"><a href="{% url 'account:myself_mi' %}">密码修改</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="myself_mi">
+        <strong>定时修改密码可保护账号安全哦</strong>
+        {% if oldpassword_is_wrong %}
+            <div class="mysself_mi_error">
+                <p>原密码不正确</p>
+            </div>
+        {% endif %}
+        <div class="mysself_error">
+            {{ form.non_field_errors }}
+        </div>
+         <form class="form-horizontal" action='.' method="post">{% csrf_token %}
+            <div class="initialpwd">
+                <span for="id_old_password"><p class="pwd_xing">*</p>原密码:</span>
+                <input type="password" name="oldpassword" autofocus required id="id_oldpassword" />
+            </div>
+            <div class="newfirstpwd">
+                <span for="id_new_password1"><p class="pwd_xing">*</p>新密码:</span>
+                <input type="password" name="newpassword1" required id="id_newpassword1" />
+            </div>
+            <div class="secondfirstpwd">
+                <span for="id_new_password2"><p class="pwd_xing">*</p>确认密码:</span>
+                <input type="password" name="newpassword2" required id="id_newpassword2" />
+            </div>
+            <input class="updatepas" type="submit" value="更改密码" name="" class="btn btn-primary btn-lg">
+        </form>
+    </div>
+
+
+{%endblock%}

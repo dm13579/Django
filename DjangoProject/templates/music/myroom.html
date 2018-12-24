@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}我的空间{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/myroom.css' %}"/>
+    <div class="room">
+        <div class="room_head">
+            <div class="room_img">
+                {% if photo %}
+                    <img src="{{ photo }}">
+                {% else %}
+                    <img src="{% static 'account/img/tou.jpg' %}">
+                {% endif %}            
+		</div>
+            <div class="room_msg">
+                <h1>{{ user.username }}<a href="{% url 'account:myself_info' %}"><button>编辑个人资料</button></a></h1>
+                <hr style="height:1px;border: 0;background-color: #8a8a8a;">
+                <p>年龄：{{ age }}</p>
+                <div class="dynamic_guanzhu">
+                    <a href="/music/guan_detail/{{ request.user.id }}"><div>{{ request.user.guanzhufor.count }}&nbsp;关注</div></a>
+                    <a href="/music/dynamic_detail/{{ request.user.id }}"><div>{{ request.user.dynamic.count }}&nbsp;动态</div></a>
+                    <a href="/music/fensi_detail/{{ request.user.id }}"><div>{{ request.user.guanzhuto.count }}&nbsp;粉丝</div></a>
+                </div>
+            </div>
+            <div class="room_creategedan"></div>
+        </div>
+        <div class="room_content">
+            <h1>我De关注</h1>
+            <hr style="height:3px;border: 0;margin-bottom:20px;background-color: red;">
+            {% for fen in request.user.guanzhufor.all %}
+                <div class="fensi_detail_list">
+                    {% if fen.guangzhuto.userprofile.photo %}
+                        <img src="{{ fen.guangzhuto.userprofile.photo }}">
+                    {% else %}
+                        <img src="{% static 'account/img/tou.jpg' %}">
+                    {% endif %}
+                    <div class="fen">
+                        <a href="/music/otherinfo/{{ fen.guangzhuto.id }}">{{ fen.guangzhuto }}</a><br>
+                        <a href="/music/guan_detail/{{ fen.guangzhuto.id }}"><div>关注&nbsp;</div><span>{{ fen.guangzhuto.guanzhufor.count }}</span>&nbsp;</a>|
+                        <a href="/music/dynamic_detail/{{ fen.guangzhuto.id }}"><div>动态&nbsp;</div><span>{{ fen.guangzhuto.dynamic.count }}</span>&nbsp;</a>|
+                        <a href="/music/fensi_detail/{{ fen.guangzhuto.id }}"><div>粉丝&nbsp;</div><span>{{ fen.guangzhuto.guanzhuto.count }}</span>&nbsp;</a>
+                        <button onclick="guanzhu({{ fen.guangzhuto.id }})">取消关注</button>
+                    </div>
+                </div>
+            {% endfor %}
+            <h1>我创建De歌单</h1>
+            <hr style="height:3px;border: 0;background-color: red;">
+            {% for g in creategedan %}
+                <a href="/music/gedandetail/{{ g.id }}">
+                    <div class="room_gedan">
+                        {% if g.gedansong.count != 0 %}
+                            <div class="room_img">
+                                <img src="{{ g.gedansong.first.music_albumimg }}">
+                            </div>
+                        {% else %}
+                            <div class="room_img">
+                                <img src="{% static 'music/img/msk.jpg' %}">
+                            </div>
+                        {% endif %}
+                        <p>{{ g.gedanname }} ({{ g.gedansong.count }}首)</p>
+                    </div>
+                </a>
+                {% empty %}
+                <span style="margin-left:20px;margin-bottom: 20px;">暂未创建歌单,<a style="color: #0d6eb1" href="{% url 'music:mymusic' 0 %}">创建</a></span>
+            {% endfor %}
+            <h1>我收藏De歌单</h1>
+            <hr style="height:3px;border: 0;background-color: red;">
+            {% for g in shougedans %}
+                <a href="/music/gedandetail/{{ g.id }}">
+                    <div class="room_gedan">
+                        {% if g.gedansong.count != 0 %}
+                            <div class="room_img">
+                                <img src="{{ g.gedansong.first.music_albumimg }}">
+                            </div>
+                        {% else %}
+                            <div class="room_img">
+                                <img src="{% static 'music/img/msk.jpg' %}">
+                            </div>
+                        {% endif %}
+                        <p>{{ g.gedanname }} ({{ g.gedansong.count }}首)</p>
+                    </div>
+                </a>
+                {% empty %}
+                <span style="margin-left:20px;margin-bottom: 20px;">他还未收藏歌单</span>
+            {% endfor %}
+            <h1>我De播放列表</h1>
+            <hr style="height:3px;border: 0;background-color: red;">
+            <table>
+                <tr class="header">
+                    <th></th>
+                    <th>歌曲</th>
+                    <th></th>
+                </tr>
+                {% for song in playlist %}
+                    <tr class="ctn">
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="/music/mp3detail/{{ song.music_id }}">{{ song.music_name }}</a></td>
+                        <td>
+                            <span onclick="player({{ song.music_id }})">播放</span>
+                            <span onclick="deleteplaylistsong({{ song.id }},'{{ song.music_name }}')">删除</span>&nbsp;
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <script>
+	function deleteplaylistsong(id,song_name) {
+            layer.open({
+                title:['删除歌曲', 'background-color:#181818;color:#fff'],
+                type:1,
+                area:["400px","150px"],
+                skin:"layui-layer-rim",
+                content:'<span style="margin-left:50px;padding-top:50px;">从播放列表中删除“'+song_name+'”</span>',
+                btn:['确定','取消'],
+                yes:function() {
+                    $.ajax({
+                        url: '{% url 'music:del_play'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id": id},
+                        success: function (e) {
+                            if(e=="1"){
+                                layer.msg('删除成功', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }else{
+                                layer.msg('删除失败', {icon: 1,time: 1000},function(){parent.location.reload();})
+                            }
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                }
+            })
+        }
+        function player(id){
+            $.ajax({
+                url:'{% url 'music:playmusic'  %}',
+                type:"POST",
+                async:false,
+                data:{"id":id},
+                success:function(data){
+                if(data=="2"){
+		    alert("无版权")
+		}else{
+                    var audioFn = audioPlay({
+                        song : data,
+                        autoPlay : true  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+                    });
+		}
+                },
+                error: function(){
+                       alert(arguments[1]);
+                }
+            });
+        }
+        function guanzhu(id){
+            $.ajax({
+                url:'{% url "music:guanzhu" %}',
+                type:'POST',
+                data:{"otheruser_id":id,"status":"cancel"},
+                success:function(e){
+                    if(e=="3"){
+                        alert("已取关")
+                        window.location.reload()
+                    }
+                },
+            })
+        }
+    </script>
+{% endblock %}

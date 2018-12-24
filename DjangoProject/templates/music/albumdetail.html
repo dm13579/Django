@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}专辑{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/detail.css' %}" />
+    <div class="album_detail_img">
+        <div class="album_bluimg">
+            <div>
+                <img src="{{ blurpicUrl }}">
+            </div>
+        </div>
+        <div class="album_detail">
+            <h1>{{ album_name }}</h1>
+            <br>
+            <span>歌手</span>
+             {% for ar in artist %}
+                {% if ar is not null %}
+                    <h3><a href="/music/artistdetail/{{ ar.1 }}/{{ ar.0 }}">{{ ar.0 }}</a>&nbsp;</h3>
+                {% endif %}
+             {% endfor %}
+            <br>
+            <span>发行时间:{{ publishtime }}</span><br>
+            <span>发行公司:{{ company }}</span><br>
+        </div>
+    </div>
+    <div class="album_detail_song">
+        <div class="song">
+            <h2>包含歌曲列表&nbsp;&nbsp;</h2><span>共{{ len }}首</span>
+            <hr style="color: red;">
+            <table>
+                <tr class="header">
+                    <th></th>
+                    <th>歌曲</th>
+                    <th>歌手</th>
+                    <th></th>
+                </tr>
+                {% for song in list %}
+                    <tr class="ctn">
+                        <td>{{ forloop.counter }}</td>
+                        <td><a href="/music/mp3detail/{{ song.1 }}">{{ song.0 }}</a></td>
+                        <td>
+                            {% for ar in song.2 %}
+                                <a href="/music/artistdetail/{{ ar.1 }}/{{ ar.0 }}">{{ ar.0 }}</a>&nbsp;
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <span onclick="player({{ song.1 }})">播放</span>&nbsp;
+                            <span onclick="shoucang({{ song.1 }})">收藏</span>&nbsp;
+			    <span><a style="color:#d0b4ce" href="/music/download_mp3/{{ song.1 }}/{{ song.0 }}">下载</a></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="otheralbum">
+{#            他的其他专辑path="albumdetail"css="detail.css"#}
+        </div>
+    </div>
+
+<script>
+    function player(id){
+        $.ajax({
+            url:'{% url 'music:playmusic'  %}',
+            type:"POST",
+            async:false,
+            data:{"id":id},
+            success:function(data){
+                if(data=="2"){
+		    alert("无版权")
+		}else{
+                    var audioFn = audioPlay({
+                        song : data,
+                        autoPlay : true  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+                    });
+		}
+
+            },
+            error: function(){
+                   alert(arguments[1]);
+                }
+            });
+    }
+     function shoucang(id){
+            layer.open({
+				title:['收藏歌曲', 'background-color:#181818;color:#fff'],
+				type:1,
+				area:["400px","200px"],
+				skin:"layui-layer-rim",
+				content:'<span style="margin-left:50px;">选择你的歌单：</span><select class="select" style="margin: 20px auto">{% for g in gedan %}<option value="{{ g.gedanname }}">{{ g.gedanname }}</option>{% endfor %}</select>',
+				btn:['确定','取消'],
+                yes:function() {
+				    gedanname=$(".select").val()
+                    $.ajax({
+                        url: '{% url 'music:shoucangmusic'  %}',
+                        type: "POST",
+                        async: false,
+                        data: {"id": id, "gedanname": gedanname},
+                        success: function (data) {
+                            if(data=="1"){
+                                alert('收藏成功')
+                                 {#layer.msg('收藏成功', {icon: 1,time: 1000},function(){parent.location.reload();})#}
+							}else{
+                                alert('歌曲已在此歌单')
+								 {#layer.msg('歌曲已在此歌单', {icon: 1,time: 1000},function(){parent.location.reload();})#}
+							}
+                        },
+                        error: function () {
+                            alert(arguments[1]);
+                        }
+                    });
+                }
+            })
+        }
+</script>
+{% endblock %}

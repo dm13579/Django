@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}{{ otheruser.username }}的粉丝{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/myroom.css' %}"/>
+    <div class="room">
+        <div class="room_head">
+            <div class="room_img">
+                {% if photo %}
+                    <img src="{{ photo }}">
+                {% else %}
+                    <img src="{% static 'account/img/tou.jpg' %}">
+                {% endif %}
+            </div>
+            <div class="room_msg">
+                <h1>{{ otheruser.username }}</h1>
+                <hr style="height:1px;border: 0;background-color: #8a8a8a;">
+                <p>年龄：{{ age }}</p>
+                <div class="dynamic_guanzhu">
+                    <a href="/music/guan_detail/{{ otheruser.id }}"><div>{{ otheruser.guanzhufor.count }}&nbsp;关注</div></a>
+                    <a href="/music/dynamic_detail/{{ otheruser.id }}"><div>{{ otheruser.dynamic.count }}&nbsp;动态</div></a>
+                    <a href="/music/fensi_detail/{{ otheruser.id }}"><div>{{ otheruser.guanzhuto.count }}&nbsp;粉丝</div></a>
+                </div>
+            </div>
+            <div class="room_creategedan"></div>
+        </div>
+        <div class="room_content">
+            <h1>TA的粉丝</h1>
+            <hr style="height:3px;border: 0;background-color: red;">
+            <div class="room_content_msg">
+                {% for fen in otheruser.guanzhuto.all %}
+                <div class="fensi_detail_list">
+                    {% if fen.guangzhufor.userprofile.photo %}
+                        <img src="{{ fen.guangzhufor.userprofile.photo }}">
+                    {% else %}
+                        <img src="{% static 'account/img/tou.jpg' %}">
+                    {% endif %}
+                    <div class="fen">
+                        <a href="/music/otherinfo/{{ fen.guangzhufor.id }}">{{ fen.guangzhufor }}</a><br>
+                        <a href="/music/guan_detail/{{ fen.guangzhufor.id }}"><div>关注&nbsp;</div><span>{{ fen.guangzhufor.guanzhufor.count }}</span>&nbsp;</a>|
+                        <a href="/music/dynamic_detail/{{ fen.guangzhufor.id }}"><div>动态&nbsp;</div><span>{{ fen.guangzhufor.dynamic.count }}</span>&nbsp;</a>|
+                        <a href="/music/fensi_detail/{{ fen.guangzhufor.id }}"><div>粉丝&nbsp;</div><span>{{ fen.guangzhufor.guanzhuto.count }}</span>&nbsp;</a>
+                        <button onclick="guanzhu({{ fen.guangzhufor.id }})">关注</button>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+    function guanzhu(id){
+        $.ajax({
+            url:'{% url "music:guanzhu" %}',
+            type:'POST',
+            data:{"otheruser_id":id,"status":"guan"},
+            success:function(e){
+                if(e=="1"){
+                    alert("关注成功，可看到TA的动态")
+                    window.location.reload()
+                }else{
+                    alert("您已关注过TA了")
+                }
+            },
+        })
+    }
+    </script>
+{% endblock %}

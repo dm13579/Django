@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}歌手{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'music/css/detail.css' %}" />
+    <div class="artist_content">
+        <h1>{{ name }}</h1>
+        <hr style="height: 2px;background-color: red;border: 0px;margin-bottom:10px;margin-top: 10px">
+        <div class="artist_mvs">相关MV</div>
+        <div class="artist_introduction">个人介绍</div>
+        <div class="artist_mvs_div">
+            {% for mvs in mvslist %}
+                <div class="list">
+                    <span style="display: none">{{ mvs.0 }}</span>
+                    {% if mvs.2 %}
+                        <img src="{{ mvs.2 }}">
+                    {% else %}
+                        <img src="{% static 'music/img/msk.jpg' %}">
+                    {% endif %}
+                    <div class="name">
+                        <p>{{ mvs.1 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            {% include "paginator.html" %}
+        </div>
+        <div class="artist_introduction_div" style="display: none">
+            {% for info in informationlist %}
+                <h1>{{ info.0 }}</h1>
+                <div>{{ info.1 | linebreaksbr }}</div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <script>
+    $(".list").click(function(){
+        var id=$(this).children("span").text()
+        $.ajax({
+            url: '{% url 'music:play_mv'  %}',
+            type: "POST",
+            async: false,
+            data: {"mv_id": id},
+            success: function (data) {
+                layer.open({
+                    title:['MV播放', 'background-color:#181818;color:#fff'],
+                    type: 1,
+                    area: ["600px", "450px"],
+                    skin: "layui-layer-rim",
+                    content: "<video style='margin-top:10px;' width='600px' src="+data+" autoplay='autoplay' controls='controls'></video>",
+                })
+            },
+            error: function () {
+                alert(arguments[1]);
+            }
+        });
+    })
+    $(".artist_introduction").click(function () {
+        $(".artist_introduction").css("border-bottom","1px solid #0FB9EF")
+        $(".artist_mvs").css("border-bottom","1px solid white")
+        $(".artist_introduction_div").css("display","block")
+        $(".artist_mvs_div").css("display","none")
+    })
+    $(".artist_mvs").click(function () {
+        $(".artist_introduction").css("border-bottom","1px solid white")
+        $(".artist_mvs").css("border-bottom","1px solid #0FB9EF")
+        $(".artist_introduction_div").css("display","none")
+        $(".artist_mvs_div").css("display","block")
+    })
+    </script>
+{% endblock %}
